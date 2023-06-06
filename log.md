@@ -2,5 +2,5 @@
 
 
 _**JUNE**_ \
-Week1 :
+Week1 : \
 June 6th = 
