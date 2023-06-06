@@ -1,6 +1,6 @@
 # Daily Log
 
 
-_**JUNE**_ \\
+_**JUNE**_ \
 Week1 :
 June 6th = 
