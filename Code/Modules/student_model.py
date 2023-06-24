@@ -1,12 +1,12 @@
 import random
-import knowledgebase
+import knowledge_base
 
 
 #Stores topic proficiency of student & questions attempted by student
 class StudentModel:
     def __init__(self) -> None:
-        knowledge_base = knowledgebase.KnowledgeBase()
-        self.syllabus = knowledge_base.syllabus
+        kb = knowledge_base.KnowledgeBase()
+        self.syllabus = kb.syllabus
 
     # assigns student proficiency for every topic
     def dummy_data_student_proficiency(self):
