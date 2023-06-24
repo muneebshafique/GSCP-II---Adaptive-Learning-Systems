@@ -27,34 +27,16 @@ class StudentModel:
             'Radioactivity':['Detection of radioactivity', 'The three types of emission', 'Radioactive decay','Fission and fusion','Half-life','Safety precautions'],
             'Earth and the Solar System':['The earth','The solar system'],
             'Stars and the Universe':['The sun as a star', 'Stars', 'The universe']
-
-
-
         }
 
     def dummy_data(self):
-        # student_proficiency = {}
-
-        # for topic, subtopics in self.topics_and_subtopics.items():
-        #     if subtopics:
-        #         student_proficiency[topic] = {}
-        #         for subtopic in subtopics:
-        #             proficiency = random.randint(1, 5)  # Assign a random integer value between 1 and 5
-        #             student_proficiency[topic][subtopic] = proficiency
-        #     else:
-        #         proficiency = random.randint(1, 5)
-        #         student_proficiency[topic] = proficiency
-
-        # print(student_proficiency)
-
-            
         student_proficiency = {}
 
         for topic, subtopics in self.topics_and_subtopics.items():
             if subtopics:
                 topic_proficiency = []
                 for subtopic in subtopics:
-                    proficiency = random.randint(1, 5)
+                    proficiency = random.randint(1, 10)
                     topic_proficiency.append(proficiency)
                     student_proficiency[topic] = {
                         'subtopics': {subtopic: proficiency for subtopic, proficiency in zip(subtopics, topic_proficiency)},
@@ -65,6 +47,7 @@ class StudentModel:
                 student_proficiency[topic] = proficiency
 
         print(student_proficiency)
+        print(len(student_proficiency))
 
 my_student = StudentModel()
 my_student.dummy_data()
