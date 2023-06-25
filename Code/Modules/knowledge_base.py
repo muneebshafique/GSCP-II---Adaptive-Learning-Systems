@@ -10,7 +10,7 @@ class KnowledgeBase:
                 'Density': [],
                 'Forces': ['Balanced and unbalanced forces', 'Friction', 'Elastic deformation', 'Circular motion','Turning effect of forces','Centre of gravity'],
                 'Momentum':[],
-                'Energy, work and power ': ['Energy ', 'Work', 'Energy resources', 'Efficiency','Power'],
+                'Energy, work and power ': ['Energy', 'Work', 'Energy resources', 'Efficiency','Power'],
                 'Pressure':[]
                 },
             'Thermal physics':{
