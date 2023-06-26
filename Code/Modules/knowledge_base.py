@@ -1,5 +1,9 @@
 
 
+TOPIC_WEIGHTAGE = 1
+SUBTOPIC_WEIGHTAGE = 0.5
+NUM_QUESTIONS=40
+
 class KnowledgeBase:
     def __init__(self) -> None:
         self.syllabus= {
@@ -10,7 +14,7 @@ class KnowledgeBase:
                 'Density': [],
                 'Forces': ['Balanced and unbalanced forces', 'Friction', 'Elastic deformation', 'Circular motion','Turning effect of forces','Centre of gravity'],
                 'Momentum':[],
-                'Energy, work and power ': ['Energy', 'Work', 'Energy resources', 'Efficiency','Power'],
+                'Energy, work and power': ['Energy', 'Work', 'Energy resources', 'Efficiency','Power'],
                 'Pressure':[]
                 },
             'Thermal physics':{
@@ -42,6 +46,45 @@ class KnowledgeBase:
             }
         }
 
-
+    #calculates num of (section, topics and subtopics)
     def stats_from_syllabus(self):
-        pass
+        num_of_sections=len(self.syllabus)
+        num_of_topics=0
+        num_of_subtopics=0
+
+        sectionwise_topic_subtopic_totals=[]
+        for section,topics in self.syllabus.items():
+            temp_topics=0
+            temp_subtopics=0
+            for topic in topics:
+                num_of_topics+=1
+                temp_topics+=1     
+                for subtopic in self.syllabus[section][topic]:
+                    num_of_subtopics+=1
+                    temp_subtopics+=1
+            sectionwise_topic_subtopic_totals.append([temp_topics,temp_subtopics])
+
+        # print("Number of sections",num_of_sections)
+        # print("Number of topics",num_of_topics)
+        # print("Number of subtopics", num_of_subtopics)
+        # print("section wise totals", sectionwise_topic_subtopic_totals)
+
+        self.section_weightage(num_of_topics,num_of_subtopics,sectionwise_topic_subtopic_totals)
+
+    # defines num of qs to be picked from each section. 
+    def section_weightage(self,num_topics,num_subtopics,sectionwise_topic_subtopic_totals):
+        global TOPIC_WEIGHTAGE, SUBTOPIC_WEIGHTAGE,NUM_QUESTIONS
+
+        total = (num_topics*TOPIC_WEIGHTAGE)+(num_subtopics*SUBTOPIC_WEIGHTAGE)
+        section_weightage={}
+
+        i=0
+        for section, topics in self.syllabus.items():
+            weight=((sectionwise_topic_subtopic_totals[i][0]*TOPIC_WEIGHTAGE)+(sectionwise_topic_subtopic_totals[i][1]*SUBTOPIC_WEIGHTAGE))/total
+            section_weightage[section]= round(weight*NUM_QUESTIONS)
+            i+=1
+        
+        print(section_weightage)
+
+kb=KnowledgeBase()
+kb.stats_from_syllabus()
