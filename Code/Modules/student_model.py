@@ -35,7 +35,7 @@ class StudentModel:
                         proficiency = random.randint(1, 10)
                         self.subtopic_proficiency[topic][subtopic] = proficiency
  
-        # initializing topic proficiency for topics with sub-topics
+        # initializing topic proficiency for topics with sub-topics(avg)
         for topic, subtopics in self.subtopic_proficiency.items():
             subtopic_proficiency_sum=0
             for subtopic in subtopics:
