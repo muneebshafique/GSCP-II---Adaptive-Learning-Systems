@@ -16,6 +16,9 @@ class PaperGenerator:
         self.topic_prof = my_student.topic_weightages(my_student.topic_proficiency)
         self.subtopic_dict = my_student.topic_weightages(my_student.subtopic_proficiency)
 
+        # self.origi_topic_prof=my_student.topic_proficiency
+        # self.origin_topic_prof=my_student.subtopic_proficiency
+
         self.subsec1 = ['Motion, forces and energy', 14]
         self.subsec2 = ['Thermal physics', 2]
         self.subsec3 = ['Waves', 4]
@@ -23,7 +26,7 @@ class PaperGenerator:
         self.subsec5 = ['Nuclear physics', 4]
         self.subsec6 = ['Space physics', 8]
 
-        df = pd.read_csv("Olevels Physics Data (2023-2025).csv")
+        # df = pd.read_csv("Olevels Physics Data (2023-2025).csv")
 
     def get_question1(self, topic_name, subtopic_name, difficulty_level):
         db_conn = sqlite3.connect("updated_questiontree.db")
