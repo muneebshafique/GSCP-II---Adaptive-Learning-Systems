@@ -1,5 +1,4 @@
 import student_model
-import pandas as pd
 import random
 import sqlite3
 import updated_questiontree
@@ -41,6 +40,7 @@ class PaperGenerator:
 
 
         question_rows = cursor.fetchall()
+        
         for row in question_rows:
             print(row)
         db_conn.close()

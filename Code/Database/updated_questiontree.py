@@ -52,7 +52,7 @@ import pandas as pd
 
 
 ############# INSERTING DIRECTLY FROM CSV FILE #############
-df = pd.read_csv("Olevels Physics Data (2023-2025).csv")
+df = pd.read_csv("./Database/Olevels Physics Data (2023-2025).csv")
 
 
 ########### INSERTING DATA INTO SECTION TABLE ###########

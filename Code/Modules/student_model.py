@@ -40,7 +40,7 @@ class StudentModel:
             subtopic_proficiency_sum=0
             for subtopic in subtopics:
                 subtopic_proficiency_sum+= self.subtopic_proficiency[topic][subtopic]
-            print(subtopic_proficiency_sum)
+            # print(subtopic_proficiency_sum)
             for section, topics in self.topic_proficiency.items():
                 if topic in topics:
                     self.topic_proficiency[section][topic]=round(subtopic_proficiency_sum/len(subtopics),SIG_FIGURES)
@@ -49,27 +49,31 @@ class StudentModel:
     #normalizes topic and sub-topic proficiency
     def topic_weightages(self,proficiency_dict):
         global MAX_PROFICIENCY
+        normalized_proficiency_dict={}
+
         for section,topics in proficiency_dict.items():
+            normalized_proficiency_dict[section]={}
             topic_proficiency_sum=0
             for topic in topics:
                 topic_proficiency_sum+=MAX_PROFICIENCY-proficiency_dict[section][topic]
             pointer=0
             for topic in topics:
                 normalized_prof=(MAX_PROFICIENCY-proficiency_dict[section][topic])/topic_proficiency_sum
-                proficiency_dict[section][topic] = pointer+normalized_prof
+                
+                normalized_proficiency_dict[section][topic] = pointer+normalized_prof
                 pointer += normalized_prof
-        return (proficiency_dict)
+        return (normalized_proficiency_dict)
       
 
 
-my_student = StudentModel()
+# my_student = StudentModel()
 # my_student.dummy_data_student_proficiency()
-normalized_topic_proficiency=my_student.topic_weightages(my_student.topic_proficiency)
-print("-------Normalized Topic proficiency---------")
-print(normalized_topic_proficiency)
-normalized_subtopic_proficiency=my_student.topic_weightages(my_student.subtopic_proficiency)
-print("\n-------Normalized SUBTopic proficiency---------")
-print(normalized_subtopic_proficiency)
+# normalized_topic_proficiency=my_student.topic_weightages(my_student.topic_proficiency)
+# print("-------Normalized Topic proficiency---------")
+# print(normalized_topic_proficiency)
+# normalized_subtopic_proficiency=my_student.topic_weightages(my_student.subtopic_proficiency)
+# print("\n-------Normalized SUBTopic proficiency---------")
+# print(normalized_subtopic_proficiency)
 
 
 
