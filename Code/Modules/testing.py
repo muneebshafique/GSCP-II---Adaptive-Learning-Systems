@@ -1,37 +1,34 @@
-import pandas as pd
+class BKT:
+    def __init__(self, p_trans, p_guess, p_slip):
+        self.p_trans = p_trans
+        self.p_guess = p_guess
+        self.p_slip = p_slip
+        self.p_know = None  # Initial knowledge state
 
-# Read the CSV file
-df = pd.read_csv("../Database/Olevels Physics Data (2023-2025).csv")
+    def update(self, response):
+        if self.p_know is None:
+            self.p_know = 0.5  # Assuming equal probability for initial knowledge
 
-# Create an empty dictionary
-data_dict = {}
+        # Update knowledge state based on the binary response
+        p_not_know = 1 - self.p_know
+        p_guess_correct = self.p_guess * p_not_know
+        p_slip_incorrect = self.p_slip * self.p_know
+        p_correct = p_guess_correct + (1 - p_slip_incorrect)
 
-# Iterate over the DataFrame rows
-for index, row in df.iterrows():
-    section = row['Section']
-    topic = row['Topic']
-    sub_topic = row['Sub Topic']
-    
-    # Check if the section already exists in the dictionary
-    if section in data_dict:
-        # Check if the topic exists within the section
-        if topic in data_dict[section]:
-            # Append the sub_topic to the existing topic
-            if sub_topic and not pd.isnull(sub_topic):
-                data_dict[section][topic].append(sub_topic)
-        else:
-            # Add the new topic and sub_topic
-            if sub_topic and not pd.isnull(sub_topic):
-                data_dict[section][topic] = [sub_topic]
-            else:
-                data_dict[section][topic] = []
-    else:
-        # Create a new section with the topic and sub_topic
-        if sub_topic and not pd.isnull(sub_topic):
-            data_dict[section] = {topic: [sub_topic]}
-        else:
-            data_dict[section] = {topic: []}
+        if response == 1:  # Correct response
+            self.p_know = (p_correct * self.p_know) / ((p_correct * self.p_know) + ((1 - self.p_slip) * p_not_know))
+        else:  # Incorrect response
+            self.p_know = (self.p_know * (1 - self.p_trans)) / ((self.p_know * (1 - self.p_trans)) + ((1 - self.p_guess) * p_not_know))
 
+    def predict(self):
+        return self.p_know
 
-# Print the resulting dictionary
-print(data_dict)
+# Example usage
+bkt = BKT(p_trans=0.2, p_guess=0.1, p_slip=0.1)
+
+# Simulating student responses
+responses = [1, 1, 0, 1]  # Assuming 1 represents a correct response and 0 represents an incorrect response
+
+for i, response in enumerate(responses):
+    bkt.update(response)
+    print(f"Knowledge state {i+1}: {bkt.predict()}")
