@@ -8,9 +8,10 @@ SIG_FIGURES=3
 class StudentModel:
     def __init__(self) -> None:
         kb = knowledge_base.KnowledgeBase()
+        # kb.initialize_syllabus("../Database/Olevels Physics Data (2023-2025).csv")
         self.syllabus = kb.syllabus
-        self.topic_proficiency={'Motion, forces and energy': {'Physical quantities and measurement techniques': 5, 'Motion': 6, 'Mass and Weight': 4, 'Density': 1, 'Forces': 5.833, 'Momentum': 7, 'Energy, work and power ': 5.0, 'Pressure': 5}, 'Thermal physics': {'Kinetic particle model of matter': 7.5, 'Thermal properties and temperatuare': 5.0, 'Transfer of thermal energy': 5.0}, 'Waves': {'General properties of waves': 3, 'Light': 7.75, 'Electromagnetic spectrum': 5, 'Sound': 4}, 'Electricity and magnetism': {'Simple magnetism and magnetic field': 7, 'Electrical quantities': 4.75, 'Electric Circuits': 2.667, 'Practical Electricity': 3.0, 'Electromagnetic effects ': 4.667, 'Uses of Oscilloscope': 8}, 'Nuclear physics': {'The nuclear model of the atom': 6.5, 'Radioactivity': 5.167}, 'Space physics': {'Earth and the Solar System': 4.5, 'Stars and the Universe': 6.0}}
-        self.subtopic_proficiency = {'Forces': {'Balanced and unbalanced forces': 7, 'Friction': 2, 'Elastic deformation': 2, 'Circular motion': 10, 'Turning effect of forces': 10, 'Centre of gravity': 4}, 'Energy, work and power ': {'Energy': 3, 'Work': 7, 'Energy resources': 1, 'Efficiency': 9, 'Power': 5}, 'Kinetic particle model of matter': {'States of matter': 7, 'Particle model': 8}, 'Thermal properties and temperatuare': {'Thermal expansion of solids, liquids and gases': 5, 'Specific heat capacity': 9, 'Melting, boiling and evaporation': 1}, 'Transfer of thermal energy': {'Conduction': 1, 'Convection': 8, 'Radiation': 2, 'Consequences of thermal energy transfer': 9}, 'Light': {'Reflection of light': 10, 'Refraction of light': 10, 'Thin lenses': 9, 'Dispersion of light': 2}, 'Electrical quantities': {'Electrical charge': 5, 'Electrical current': 9, 'Electromotive force and potential difference': 3, 'Resistance': 2}, 'Electric Circuits': {'Circuit diagram and circuit components': 4, 'Series and parallel circuits': 2, 'Action and use of circuit components': 2}, 'Practical Electricity': {'Uses of electricity': 5, 'Electrical Safety': 1}, 'Electromagnetic effects ': {'Electromagnetic induction': 5, 'The a.c. generator': 4, 'Magnetic effect of a current': 2, 'Forces on a current-carrying conductor': 7, 'The d.c. motor': 2, 'The transformer': 8}, 'The nuclear model of the atom': {'The atom': 3, 'The nucleus': 10}, 'Radioactivity': {'Detection of radioactivity': 7, 'The three types of emission': 3, 'Radioactive decay': 5, 'Fission and fusion': 3, 'Half-life': 9, 'Safety precautions': 4}, 'Earth and the Solar System': {'The earth': 4, 'The solar system': 5}, 'Stars and the Universe': {'The sun as a star': 5, 'Stars': 7, 'The universe': 6}}
+        self.topic_proficiency={'Motion, forces and energy': {'Physical quantities and measurement techniques': 10, 'Motion': 3, 'Mass and Weight': 8, 'Density': 2, 'Forces': 5.5, 'Momentum': 1, 'Energy, work and power ': 3.8, 'Pressure': 7}, 'Thermal physics': {'Kinetic particle model of matter ': 1.5, 'Thermal properties and temperature': 2.333, 'Transfer of thermal energy ': 5.5}, 'Waves': {'General properties of waves ': 9, 'Light ': 6.25, 'Electromagnetic spectrum': 10, 'Sound ': 10}, 'Electricity and magnetism': {'Simple magnetism and magnetic field ': 1, 'Electrical quantities ': 6.25, 'Electric Circuits': 3.333, 'Practical Electricity': 6.0, 'Electromagnetic effects ': 5.5, 'Uses of Oscilloscope': 10}, 'Nuclear physics': {'The nuclear model of the atom ': 4.0, 'Radioactivity ': 6.333}, 'Space physics': {'Earth and the Solar System ': 4.5, 'Stars and the Universe ': 6.667}}
+        self.subtopic_proficiency = {'Forces': {'Balanced and unbalanced forces': 5, 'Friction': 4, 'Elastic deformation': 3, 'Circular motion': 7, 'Turning effect of forces': 5, 'Centre of gravity': 9}, 'Energy, work and power ': {'Energy ': 1, 'Work': 6, 'Energy resources': 2, 'Efficiency': 3, 'Power': 7}, 'Kinetic particle model of matter ': {'States of matter ': 1, 'Particle model ': 2}, 'Thermal properties and temperature': {'Thermal expansion of solids, liquids and gases ': 3, 'Specific heat capacity ': 1, 'Melting, boiling and evaporation ': 3}, 'Transfer of thermal energy ': {'Conduction ': 1, 'Convection ': 9, 'Radiation ': 5, 'Consequences of thermal energy transfer ': 7}, 'Light ': {'Reflection of light ': 3, 'Refraction of light ': 10, 'Thin lenses ': 9, 'Dispersion of light ': 3}, 'Electrical quantities ': {'Electrical charge ': 9, 'Electrical current ': 10, 'Electromotive force and potential difference ': 4, 'Resistance ': 2}, 'Electric Circuits': {'Circuit diagram and circuit components': 6, 'Series and parallel circuits': 1, 'Action and use of circuit components': 3}, 'Practical Electricity': {'Uses of electricity': 4, 'Electrical Safety': 8}, 'Electromagnetic effects ': {'Electromagnetic induction ': 7, 'The a.c. generator ': 4, 'Magnetic effect of a current ': 3, 'Forces on a current-carrying conductor ': 9, 'The d.c. motor ': 8, 'The transformer ': 2}, 'The nuclear model of the atom ': {'The atom ': 3, 'The nucleus ': 5}, 'Radioactivity ': {'Detection of radioactivity ': 8, 'The three types of emission ': 4, 'Radioactive decay ': 5, 'Fission and fusion ': 10, 'Half-life ': 5, 'Safety precautions ': 6}, 'Earth and the Solar System ': {'The earth ': 5, 'The solar system ': 4}, 'Stars and the Universe ': {'The sun as a star ': 5, 'Stars ': 10, 'The universe ': 5}}
 
         # print("-------Topic proficiency---------")
         # print(self.topic_proficiency)
@@ -58,8 +59,7 @@ class StudentModel:
                 topic_proficiency_sum+=MAX_PROFICIENCY-proficiency_dict[section][topic]
             pointer=0
             for topic in topics:
-                normalized_prof=(MAX_PROFICIENCY-proficiency_dict[section][topic])/topic_proficiency_sum
-                
+                normalized_prof=(MAX_PROFICIENCY-proficiency_dict[section][topic])/topic_proficiency_sum   
                 normalized_proficiency_dict[section][topic] = pointer+normalized_prof
                 pointer += normalized_prof
         return (normalized_proficiency_dict)
@@ -68,6 +68,11 @@ class StudentModel:
 
 # my_student = StudentModel()
 # my_student.dummy_data_student_proficiency()
+# print("Topic proficiency")
+# print(my_student.topic_proficiency)
+# print("Sub topic proficiency")
+# print(my_student.subtopic_proficiency)
+
 # normalized_topic_proficiency=my_student.topic_weightages(my_student.topic_proficiency)
 # print("-------Normalized Topic proficiency---------")
 # print(normalized_topic_proficiency)
