@@ -4,6 +4,7 @@ import knowledge_base
 
 MAX_PROFICIENCY = 10
 SIG_FIGURES=3
+# NUM_OF_QUESTIONS=42
 #Stores topic proficiency of student & questions attempted by student
 class StudentModel:
     def __init__(self) -> None:
@@ -48,7 +49,7 @@ class StudentModel:
     
 
     #normalizes topic and sub-topic proficiency
-    def topic_weightages(self,proficiency_dict):
+    def topic_probability(self,proficiency_dict):
         global MAX_PROFICIENCY
         normalized_proficiency_dict={}
 
@@ -64,6 +65,94 @@ class StudentModel:
                 pointer += normalized_prof
         return (normalized_proficiency_dict)
       
+    def generate_response(self,paper):
+        self.response=[]
+        options = ["A","B","C","D"]
+        
+        for i in range (len(paper)):
+            random_option = random.choice(options)
+            self.response.append(random_option)
+
+        print("--------RESPONSE OF STUDENT-------")    
+        print(self.response)
+        return self.response
+
+    def Q_generate_new_proficiencies(self,response, paper):
+        response = [1,0,0,1,0]
+        paper=[("T1","None",1,"T2","None",1),
+        ("T2","None",1,"T3","None",1),
+        ("T1","None",1,"T3","None",1),
+        ("T1","None",1),
+        ("T3","None",1)]
+
+        # student_ability={}
+        # for i in range (len(response)):
+        #     for topic_info in paper[i]:
+        #         if student_ability
+        #         if len(topic_info)==3:
+        #             topic = topic_info[0]
+        #             subtopic = topic_info[1]
+        #             student_ability[topic,subtopic]=[,]
+                
+
+
+
+
+
+
+
+
+
+
+
+        # R= [1,0,0,1,0]
+        # Q = [[1,1,0],
+        #     [0,1,1],
+        #     [1,0,1],
+        #     [1,0,0],
+        #     [0,0,1],
+        #     ]
+
+        # student_info = []
+        # for i in range(len(R)):
+        #     temp=[]
+        #     for j in range(len(Q[i])):
+        #         if Q[i][j]==0:
+        #             result= "-"
+        #         elif (R[i]==0 and Q[i][j]==0):
+        #             result= "-"
+        #         else:
+        #             result= R[i]*Q[i][j]
+        #         temp.append(result)
+        #     student_info.append(temp)
+
+        
+        # print("-------STUDENT INFORMATION")
+        # print(student_info)
+
+        # column_sums = []
+        # num_entries = []
+
+        # for column in zip(*student_info):
+        #     filtered_column = [value for value in column if value != "-"]
+        #     column_sums.append(sum(filtered_column))
+        #     num_entries.append(len(filtered_column))
+
+        # topic_proficiency=[]
+        # for i in range(len(column_sums)):
+        #     topic_proficiency.append(column_sums[i]/num_entries[i])
+
+        # print(column_sums)
+        # print("Total entries per column:", num_entries)
+        # print(topic_proficiency)
+
+    def Q_update_student_model(self):
+        pass
+
+
+            
+
+      
 
 
 # my_student = StudentModel()
@@ -73,10 +162,10 @@ class StudentModel:
 # print("Sub topic proficiency")
 # print(my_student.subtopic_proficiency)
 
-# normalized_topic_proficiency=my_student.topic_weightages(my_student.topic_proficiency)
+# normalized_topic_proficiency=my_student.topic_probability(my_student.topic_proficiency)
 # print("-------Normalized Topic proficiency---------")
 # print(normalized_topic_proficiency)
-# normalized_subtopic_proficiency=my_student.topic_weightages(my_student.subtopic_proficiency)
+# normalized_subtopic_proficiency=my_student.topic_probability(my_student.subtopic_proficiency)
 # print("\n-------Normalized SUBTopic proficiency---------")
 # print(normalized_subtopic_proficiency)
 

@@ -1,3 +1,4 @@
+import evaluation
 import student_model
 import knowledge_base
 import random
@@ -9,13 +10,14 @@ DIFF_LEVEL_2 = 6.66
 
 class PaperGenerator():
     def __init__(self,filename) -> None:
+        self.evaluate = evaluation.Evaluation()
         kb = knowledge_base.KnowledgeBase()
         kb.initialize_syllabus(filename)
-        my_student = student_model.StudentModel()
-        self.topic_proficiency=my_student.topic_proficiency
-        self.subtopic_proficiency = my_student.subtopic_proficiency
-        self.normalized_topic_proficiency = my_student.topic_weightages(self.topic_proficiency)
-        self.normalized_subtopic_proficiency = my_student.topic_weightages(self.subtopic_proficiency)
+        self.my_student = student_model.StudentModel()
+        self.topic_proficiency=self.my_student.topic_proficiency
+        self.subtopic_proficiency = self.my_student.subtopic_proficiency
+        self.normalized_topic_proficiency = self.my_student.topic_probability(self.topic_proficiency)
+        self.normalized_subtopic_proficiency = self.my_student.topic_probability(self.subtopic_proficiency)
         self.section_weightage=kb.section_weightage
         self.paper=[]
         # # print("-------Topic proficiency------")
@@ -58,7 +60,7 @@ class PaperGenerator():
     def generate_paper(self):
       
         for section, weightage in self.section_weightage.items():
-            print("-------------",section,"------------")
+            # print("-------------",section,"------------")
             for i in range (self.section_weightage[section]):
                 randomnumber = random.random()
                 selected_topic,selected_subtopic="None","None"
@@ -73,20 +75,26 @@ class PaperGenerator():
                                     selected_subtopic = subtopic
                                     proficiency = self.subtopic_proficiency[selected_topic][selected_subtopic]
                                     qs_difficulty=self.get_difficulty_level(proficiency)
-                                    # self.paper.append((selected_topic,selected_subtopic,qs_difficulty))
-                                    print(selected_topic,selected_subtopic,qs_difficulty)
-                                    self.get_question(selected_topic, selected_subtopic, qs_difficulty)
+                                    self.paper.append((selected_topic,selected_subtopic,qs_difficulty))
+                                    # print(selected_topic,selected_subtopic,qs_difficulty)
+                                    # self.get_question(selected_topic, selected_subtopic, qs_difficulty)
                                     break
                             break
                         else:
                             proficiency=self.topic_proficiency[section][selected_topic]
                             qs_difficulty=self.get_difficulty_level(proficiency)
-                            # self.paper.append((selected_topic,selected_subtopic,qs_difficulty))
-                            print(selected_topic,selected_subtopic,qs_difficulty)
-                            self.get_question(selected_topic, selected_subtopic, qs_difficulty)
+                            self.paper.append((selected_topic,selected_subtopic,qs_difficulty))
+                            # print(selected_topic,selected_subtopic,qs_difficulty)
+                            # self.get_question(selected_topic, selected_subtopic, qs_difficulty)
                             break
 
         self.print_paper()
+        response=self.my_student.generate_response(self.paper)
+        checked_paper=self.evaluate.check_paper(response)
+        self.my_student.Q_generate_new_proficiencies(checked_paper,self.paper)
+        
+
+        
     # converts proficiency to difficulty level of question to be picked. 
     def get_difficulty_level(self,proficiency):
 
@@ -101,6 +109,8 @@ class PaperGenerator():
     
 
     def print_paper(self):
+        print("------------PRINTING PAPER-------")
+        # print(len(self.paper))
         for qs in self.paper:
             print(qs)
 
