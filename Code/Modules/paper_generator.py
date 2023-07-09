@@ -19,7 +19,7 @@ class PaperGenerator():
         self.normalized_topic_proficiency = self.my_student.topic_probability(self.topic_proficiency)
         self.normalized_subtopic_proficiency = self.my_student.topic_probability(self.subtopic_proficiency)
         self.section_weightage=kb.section_weightage
-        self.paper=[]
+        self.paper={}
         # # print("-------Topic proficiency------")
         # # print(self.topic_proficiency)
         # # print("-------SUB Topic proficiency------")
@@ -58,14 +58,16 @@ class PaperGenerator():
     
     #picks topics and subtopics based on user proficiency 
     def generate_paper(self):
-      
+        qs_num = 1
         for section, weightage in self.section_weightage.items():
             # print("-------------",section,"------------")
             for i in range (self.section_weightage[section]):
+                self.paper[qs_num]=[]
                 randomnumber = random.random()
                 selected_topic,selected_subtopic="None","None"
                 topics = self.normalized_topic_proficiency[section]
                 for topic, topic_weightage in topics.items():
+                    
                     if randomnumber <= topic_weightage:
                         selected_topic = topic
                         if selected_topic in self.normalized_subtopic_proficiency:
@@ -75,7 +77,7 @@ class PaperGenerator():
                                     selected_subtopic = subtopic
                                     proficiency = self.subtopic_proficiency[selected_topic][selected_subtopic]
                                     qs_difficulty=self.get_difficulty_level(proficiency)
-                                    self.paper.append((selected_topic,selected_subtopic,qs_difficulty))
+                                    self.paper[qs_num].append((selected_topic,selected_subtopic,qs_difficulty))
                                     # print(selected_topic,selected_subtopic,qs_difficulty)
                                     # self.get_question(selected_topic, selected_subtopic, qs_difficulty)
                                     break
@@ -83,11 +85,11 @@ class PaperGenerator():
                         else:
                             proficiency=self.topic_proficiency[section][selected_topic]
                             qs_difficulty=self.get_difficulty_level(proficiency)
-                            self.paper.append((selected_topic,selected_subtopic,qs_difficulty))
+                            self.paper[qs_num].append((selected_topic,selected_subtopic,qs_difficulty))
                             # print(selected_topic,selected_subtopic,qs_difficulty)
                             # self.get_question(selected_topic, selected_subtopic, qs_difficulty)
                             break
-
+                qs_num+=1
         self.print_paper()
         response=self.my_student.generate_response(self.paper)
         checked_paper=self.evaluate.check_paper(response)
@@ -111,8 +113,10 @@ class PaperGenerator():
     def print_paper(self):
         print("------------PRINTING PAPER-------")
         # print(len(self.paper))
-        for qs in self.paper:
-            print(qs)
+        for qs_num, qs_info in self.paper.items():
+            print(qs_num, " : ", qs_info)
+
+            # print(qs)
 
 filename ="../Database/Olevels Physics Data (2023-2025).csv"
 pg = PaperGenerator(filename)

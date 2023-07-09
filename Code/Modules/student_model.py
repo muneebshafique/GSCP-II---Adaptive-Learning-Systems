@@ -79,24 +79,36 @@ class StudentModel:
 
     def Q_generate_new_proficiencies(self,response, paper):
         response = [1,0,0,1,0]
-        paper=[("T1","None",1,"T2","None",1),
-        ("T2","None",1,"T3","None",1),
-        ("T1","None",1,"T3","None",1),
-        ("T1","None",1),
-        ("T3","None",1)]
+        paper={1: [("T1","None",1),("T2","None",1)],
+        2:[("T2","None",1),("T3","None",1)],
+        3:[("T1","None",1),("T3","None",1)],
+        4:[("T1","None",1)],
+        5:[("T3","None",1)]}
 
-        # student_ability={}
-        # for i in range (len(response)):
-        #     for topic_info in paper[i]:
-        #         if student_ability
-        #         if len(topic_info)==3:
-        #             topic = topic_info[0]
-        #             subtopic = topic_info[1]
-        #             student_ability[topic,subtopic]=[,]
-                
+        student_ability={}
+        for i in range (len(response)):
+            qs_info=paper[i+1]
+            for topic_info in qs_info:
+                print(topic_info)
+                if (topic_info[0],topic_info[1]) not in student_ability:
+                    student_ability[topic_info[0],topic_info[1]]=[0,0]
+                    updated_topic_record=self.update_topic_record(student_ability[(topic_info[0],topic_info[1])],response[i])
+                    student_ability[(topic_info[0],topic_info[1])]=updated_topic_record
+                else:
+                    updated_topic_record=self.update_topic_record(student_ability[(topic_info[0],topic_info[1])],response[i])
+                    student_ability[(topic_info[0],topic_info[1])]=updated_topic_record
+        
+        print(student_ability)
 
+    def update_topic_record(self,record, response):
+        num_correct_attempts,num_total_attempts=record[0], record[1]
+        if response == 1:
+            num_correct_attempts+=1
+        num_total_attempts+=1
 
+        record[0], record[1] = num_correct_attempts,num_total_attempts
 
+        return record
 
 
 
