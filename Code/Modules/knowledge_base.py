@@ -8,6 +8,7 @@ class KnowledgeBase:
     def __init__(self) -> None:
         self.section_weightage={}
         self.syllabus={}
+   
         
 
     def initialize_syllabus(self,filename):
@@ -37,12 +38,12 @@ class KnowledgeBase:
                 else:
                     self.syllabus[section] = {topic: []}
 
-
-
         # print(self.syllabus)
         self.stats_from_syllabus()
+
     #calculates num of (section, topics and subtopics)
     def stats_from_syllabus(self):
+        self.topic_section_mapping={}
         num_of_sections=len(self.syllabus)
         num_of_topics=0
         num_of_subtopics=0
@@ -54,11 +55,14 @@ class KnowledgeBase:
             for topic in topics:
                 num_of_topics+=1
                 temp_topics+=1     
+                if topic not in self.topic_section_mapping:
+                    self.topic_section_mapping[topic]=section
                 for subtopic in self.syllabus[section][topic]:
                     num_of_subtopics+=1
                     temp_subtopics+=1
             sectionwise_topic_subtopic_totals.append([temp_topics,temp_subtopics])
-
+        # print("------Printing topic section mapping-------")
+        # print(self.topic_section_mapping)
         # print("Number of sections",num_of_sections)
         # print("Number of topics",num_of_topics)
         # print("Number of subtopics", num_of_subtopics)

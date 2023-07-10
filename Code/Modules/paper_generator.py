@@ -5,8 +5,8 @@ import random
 import sqlite3
 import updated_questiontree
 
-DIFF_LEVEL_1 = 3.33
-DIFF_LEVEL_2 = 6.66
+DIFF_LEVEL_1 = 0.33
+DIFF_LEVEL_2 = 0.66
 
 class PaperGenerator():
     def __init__(self,filename) -> None:
@@ -90,11 +90,13 @@ class PaperGenerator():
                             # self.get_question(selected_topic, selected_subtopic, qs_difficulty)
                             break
                 qs_num+=1
+                
         self.print_paper()
         response=self.my_student.generate_response(self.paper)
         checked_paper=self.evaluate.check_paper(response)
-        self.my_student.Q_generate_new_proficiencies(checked_paper,self.paper)
-        
+        student_ability=self.my_student.Q_generate_new_proficiencies(checked_paper,self.paper)
+        self.my_student.Q_update_student_proficiency(student_ability)
+        # self.my_student.Q_update_student_model
 
         
     # converts proficiency to difficulty level of question to be picked. 
