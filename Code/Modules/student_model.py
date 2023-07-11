@@ -5,7 +5,8 @@ import knowledge_base
 MAX_PROFICIENCY = 10
 SIG_FIGURES=3
 CATSIM_WEIGHTAGE=10
-#Stores topic proficiency of student & questions attempted by student
+
+#Stores topic,subtopic proficiency of student & questions attempted by student
 class StudentModel:
     def __init__(self) -> None:
         kb = knowledge_base.KnowledgeBase()
@@ -15,14 +16,12 @@ class StudentModel:
         self.topic_proficiency={'Motion, forces and energy': {'Physical quantities and measurement techniques': 0.566, 'Motion': 0.628, 'Mass and Weight': 0.544, 'Density': 0.962, 'Forces': 0.528, 'Momentum': 0.446, 'Energy, work and power ': 0.616, 'Pressure': 0.294}, 'Thermal physics': {'Kinetic particle model of matter ': 0.469, 'Thermal properties and temperature': 0.35, 'Transfer of thermal energy ': 0.354}, 'Waves': {'General properties of waves ': 0.936, 'Light ': 0.913, 'Electromagnetic spectrum': 0.051, 'Sound ': 0.889}, 'Electricity and magnetism': {'Simple magnetism and magnetic field ': 0.974, 'Electrical quantities ': 0.473, 'Electric Circuits': 0.541, 'Practical Electricity': 0.463, 'Electromagnetic effects ': 0.757, 'Uses of Oscilloscope': 0.551}, 'Nuclear physics': {'The nuclear model of the atom ': 0.449, 'Radioactivity ': 0.241}, 'Space physics': {'Earth and the Solar System ': 0.477, 'Stars and the Universe ': 0.233}}
         self.subtopic_proficiency = {'Forces': {'Balanced and unbalanced forces': 0.344, 'Friction': 0.43, 'Elastic deformation': 0.905, 'Circular motion': 0.201, 'Turning effect of forces': 0.492, 'Centre of gravity': 0.796}, 'Energy, work and power ': {'Energy ': 0.525, 'Work': 0.853, 'Energy resources': 0.871, 'Efficiency': 0.642, 'Power': 0.187}, 'Kinetic particle model of matter ': {'States of matter ': 0.208, 'Particle model ': 0.731}, 'Thermal properties and temperature': {'Thermal expansion of solids, liquids and gases ': 0.022, 'Specific heat capacity ': 0.538, 'Melting, boiling and evaporation ': 0.491}, 'Transfer of thermal energy ': {'Conduction ': 0.88, 'Convection ': 0.019, 'Radiation ': 0.464, 'Consequences of thermal energy transfer ': 0.052}, 'Light ': {'Reflection of light ': 0.915, 'Refraction of light ': 0.845, 'Thin lenses ': 0.908, 'Dispersion of light ': 0.985}, 'Electrical quantities ': {'Electrical charge ': 0.391, 'Electrical current ': 0.157, 'Electromotive force and potential difference ': 0.735, 'Resistance ': 0.611}, 'Electric Circuits': {'Circuit diagram and circuit components': 0.714, 'Series and parallel circuits': 0.665, 'Action and use of circuit components': 0.243}, 'Practical Electricity': {'Uses of electricity': 0.109, 'Electrical Safety': 0.818}, 'Electromagnetic effects ': {'Electromagnetic induction ': 0.856, 'The a.c. generator ': 0.956, 'Magnetic effect of a current ': 0.942, 'Forces on a current-carrying conductor ': 0.7, 'The d.c. motor ': 0.564, 'The transformer ': 0.527}, 'The nuclear model of the atom ': {'The atom ': 0.746, 'The nucleus ': 0.151}, 'Radioactivity ': {'Detection of radioactivity ': 0.246, 'The three types of emission ': 0.443, 'Radioactive decay ': 0.244, 'Fission and fusion ': 0.036, 'Half-life ': 0.013, 'Safety precautions ': 0.464}, 'Earth and the Solar System ': {'The earth ': 0.852, 'The solar system ': 0.103}, 'Stars and the Universe ': {'The sun as a star ': 0.358, 'Stars ': 0.221, 'The universe ': 0.12}}
 
-        print("syllabus")
-        print(self.syllabus)
         # print("-------Topic proficiency---------")
         # print(self.topic_proficiency)
         # print("------SUB - Topic proficiency---------")
         # print(self.subtopic_proficiency)
 
-    # assigns student proficiency for every topic
+    # assigns proficiency for every topic and subtopic (0-1)
     def dummy_data_student_proficiency(self):
         global SIG_FIGURES
         self.topic_proficiency={}
@@ -72,6 +71,7 @@ class StudentModel:
                 pointer += normalized_prof
         return (normalized_proficiency_dict)
       
+    # randomly generates response for every question in the paper. 
     def generate_response(self,paper):
         self.response=[]
         options = ["A","B","C","D"]
@@ -80,10 +80,11 @@ class StudentModel:
             random_option = random.choice(options)
             self.response.append(random_option)
 
-        print("--------RESPONSE OF STUDENT-------")    
+        print("\n--------RESPONSE OF STUDENT-------")    
         print(self.response)
         return self.response
 
+    # Generates new topic and subtopic proficiency based on student responses
     def Q_generate_new_proficiencies(self,response, paper):
         # response = [1,0,0,1,0]
         # paper={1: [("T1","None",1),("T2","None",1)],
@@ -96,7 +97,7 @@ class StudentModel:
         for i in range (len(response)):
             qs_info=paper[i+1]
             for topic_info in qs_info:
-                print(topic_info)
+                # print(topic_info)
                 if (topic_info[0],topic_info[1]) not in student_ability:
                     student_ability[topic_info[0],topic_info[1]]=[0,0]
                     updated_topic_record=self.Q_update_topic_record(student_ability[(topic_info[0],topic_info[1])],response[i])
@@ -108,6 +109,7 @@ class StudentModel:
         print(student_ability)
         return(student_ability)
 
+    #helper function to Q_generate_new_proficiencies
     def Q_update_topic_record(self,record, response):
         num_correct_attempts,num_total_attempts=record[0], record[1]
         if response == 1:
@@ -118,20 +120,21 @@ class StudentModel:
 
         return record
 
-
+    #Updates student topic and sub-topic proficiency
     def Q_update_student_proficiency(self, student_ability):
         for topic_subtopic, details in student_ability.items():
             num_correct_attempts,num_total_attempts=details[0],details[1]
             topic_proficiency= num_correct_attempts/num_total_attempts
-            # print(topic_subtopic," : ",topic_proficiency)
             if topic_subtopic[1]== "None":
                 section=self.topic_section_mapping[topic_subtopic[0]]
                 self.topic_proficiency[section][topic_subtopic[0]]=  ((topic_proficiency*num_total_attempts) +  (self.topic_proficiency[section][topic_subtopic[0]]*CATSIM_WEIGHTAGE))/(CATSIM_WEIGHTAGE+num_total_attempts)
             else:
                 self.subtopic_proficiency[topic_subtopic[0]][topic_subtopic[1]]=  ((topic_proficiency*num_total_attempts) +  (self.subtopic_proficiency[topic_subtopic[0]][topic_subtopic[1]]*CATSIM_WEIGHTAGE))/(CATSIM_WEIGHTAGE+num_total_attempts)
 
+        print("\n-----------PRE-UPDATE TOPIC PROFICIENCY----------")
         print(self.topic_proficiency)
         self.topic_proficiency=self.update_topic_proficiencies(self.topic_proficiency, self.subtopic_proficiency)
+        print("\n-----------POST-UPDATE TOPIC PROFICIENCY----------")
         print(self.topic_proficiency)
         # print(self.subtopic_proficiency)
             # print(topic_subtopic)
@@ -182,9 +185,7 @@ class StudentModel:
         # print("Total entries per column:", num_entries)
         # print(topic_proficiency)
 
-    def Q_update_student_model(self):
-        pass
-
+    
 
             
 

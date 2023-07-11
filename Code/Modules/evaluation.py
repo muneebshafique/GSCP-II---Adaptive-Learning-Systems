@@ -13,6 +13,6 @@ class Evaluation():
             random_option = random.choice(options)
             checked_paper.append(random_option)
 
-        print("--------CHECKED RESPONSE-------")
+        print("\n--------CHECKED RESPONSE-------")
         print(checked_paper)
         return checked_paper

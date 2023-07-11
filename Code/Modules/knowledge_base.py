@@ -10,7 +10,7 @@ class KnowledgeBase:
         self.syllabus={}
    
         
-
+    #reads csv file and stores info on section, topics and subtopics. 
     def initialize_syllabus(self,filename):
         df = pd.read_csv(filename)
         for index, row in df.iterrows():
@@ -73,7 +73,6 @@ class KnowledgeBase:
     # defines num of qs to be picked from each section. 
     def generate_section_weightage(self,num_topics,num_subtopics,sectionwise_topic_subtopic_totals):
         global TOPIC_WEIGHTAGE, SUBTOPIC_WEIGHTAGE,NUM_QUESTIONS
-
         total = (num_topics*TOPIC_WEIGHTAGE)+(num_subtopics*SUBTOPIC_WEIGHTAGE)
         
         i=0
@@ -84,6 +83,6 @@ class KnowledgeBase:
         
         # print(self.section_weightage)
 
-filename ="../Database/Olevels Physics Data (2023-2025).csv"
-kb=KnowledgeBase()
-kb.initialize_syllabus(filename)
+# filename ="../Database/Olevels Physics Data (2023-2025).csv"
+# kb=KnowledgeBase()
+# kb.initialize_syllabus(filename)

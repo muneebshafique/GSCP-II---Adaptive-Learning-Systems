@@ -94,6 +94,7 @@ class PaperGenerator():
         self.print_paper()
         response=self.my_student.generate_response(self.paper)
         checked_paper=self.evaluate.check_paper(response)
+        print("\n-------- STUDENT INFO FROM RESPONSES-------")
         student_ability=self.my_student.Q_generate_new_proficiencies(checked_paper,self.paper)
         self.my_student.Q_update_student_proficiency(student_ability)
         # self.my_student.Q_update_student_model
@@ -111,7 +112,7 @@ class PaperGenerator():
             
         return difficulty
     
-
+    #helper function 
     def print_paper(self):
         print("------------PRINTING PAPER-------")
         # print(len(self.paper))
@@ -120,6 +121,6 @@ class PaperGenerator():
 
             # print(qs)
 
-filename ="../Database/Olevels Physics Data (2023-2025).csv"
-pg = PaperGenerator(filename)
+# filename ="../Database/Olevels Physics Data (2023-2025).csv"
+# pg = PaperGenerator(filename)
 
