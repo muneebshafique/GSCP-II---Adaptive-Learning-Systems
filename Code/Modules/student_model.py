@@ -42,7 +42,7 @@ class StudentModel:
         
         self.topic_proficiency=self.update_topic_proficiencies(self.topic_proficiency, self.subtopic_proficiency)
     
-    # initializing topic proficiency for topics with sub-topics(avg)
+    # recalibrating topic proficiency for topics with sub-topics -- taking(avg)
     def update_topic_proficiencies(self, topic_proficiency, subtopic_proficiency):
         for topic, subtopics in subtopic_proficiency.items():
             subtopic_proficiency_sum=0
@@ -106,6 +106,7 @@ class StudentModel:
                     updated_topic_record=self.Q_update_topic_record(student_ability[(topic_info[0],topic_info[1])],response[i])
                     student_ability[(topic_info[0],topic_info[1])]=updated_topic_record
         
+        print("\n-------- STUDENT INFO FROM RESPONSES-------")
         print(student_ability)
         return(student_ability)
 
@@ -131,8 +132,8 @@ class StudentModel:
             else:
                 self.subtopic_proficiency[topic_subtopic[0]][topic_subtopic[1]]=  ((topic_proficiency*num_total_attempts) +  (self.subtopic_proficiency[topic_subtopic[0]][topic_subtopic[1]]*CATSIM_WEIGHTAGE))/(CATSIM_WEIGHTAGE+num_total_attempts)
 
-        print("\n-----------PRE-UPDATE TOPIC PROFICIENCY----------")
-        print(self.topic_proficiency)
+        # print("\n-----------PRE-UPDATE TOPIC PROFICIENCY----------")
+        # print(self.topic_proficiency)
         self.topic_proficiency=self.update_topic_proficiencies(self.topic_proficiency, self.subtopic_proficiency)
         print("\n-----------POST-UPDATE TOPIC PROFICIENCY----------")
         print(self.topic_proficiency)
