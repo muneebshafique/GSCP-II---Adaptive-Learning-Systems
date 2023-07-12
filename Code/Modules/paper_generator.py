@@ -10,10 +10,6 @@ DIFF_LEVEL_2 = 0.66
 
 class PaperGenerator():
     def __init__(self,filename,kb, my_student) -> None:
-        # self.evaluate = evaluation.Evaluation()
-        # kb = knowledge_base.KnowledgeBase()
-        # kb.initialize_syllabus(filename)
-
 
         self.my_student = my_student
         self.topic_proficiency=my_student.topic_proficiency
@@ -21,20 +17,6 @@ class PaperGenerator():
         self.normalized_topic_proficiency = my_student.topic_probability(self.topic_proficiency)
         self.normalized_subtopic_proficiency = my_student.topic_probability(self.subtopic_proficiency)
         self.section_weightage=kb.section_weightage
-
-
-
-        # paper={}
-        # # print("-------Topic proficiency------")
-        # # print(self.topic_proficiency)
-        # # print("-------SUB Topic proficiency------")
-        # # print(self.subtopic_proficiency)
-        # print("-------Normalized topic proficiency ------")
-        # print(self.normalized_topic_proficiency)
-        # print("-------Normalized Sub topic proficiency ------")
-        # print(self.normalized_subtopic_proficiency)
-
-        # self.generate_paper()
 
 
     # fetches questions from database
@@ -96,7 +78,6 @@ class PaperGenerator():
         
         return paper
         
-
         
     # converts proficiency to difficulty level of question to be picked. 
     def get_difficulty_level(self,proficiency):

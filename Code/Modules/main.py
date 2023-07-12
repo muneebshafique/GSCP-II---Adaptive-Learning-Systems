@@ -26,7 +26,7 @@ class MainProgram:
         
         #based on evalutation student's topic and sub-topic proficiencies are updated. 
         current_student_ability=self.student_model.Q_generate_new_proficiencies(checked_paper,paper)
-        self.student_model.Q_update_student_proficiency(current_student_ability)
+        self.student_model.Q_update_student_proficiency(current_student_ability,self.knowledge_base.topic_section_mapping)
 
        
 if __name__ == "__main__":
