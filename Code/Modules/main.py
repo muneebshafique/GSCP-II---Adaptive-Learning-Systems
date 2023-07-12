@@ -28,6 +28,9 @@ class MainProgram:
         current_student_ability=self.student_model.Q_generate_new_proficiencies(checked_paper,paper)
         self.student_model.Q_update_student_proficiency(current_student_ability,self.knowledge_base.topic_section_mapping)
 
+        # Option number 2 based on Elo rating system.
+        # self.student_model.Elo_update_student_proficiency(paper, checked_paper, self.knowledge_base.topic_section_mapping)
+
        
 if __name__ == "__main__":
     program = MainProgram()
