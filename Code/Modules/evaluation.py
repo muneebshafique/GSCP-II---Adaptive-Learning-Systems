@@ -16,3 +16,4 @@ class Evaluation():
         print("\n--------CHECKED RESPONSE-------")
         print(checked_paper)
         return checked_paper
+
