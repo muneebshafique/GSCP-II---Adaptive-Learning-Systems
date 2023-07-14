@@ -131,6 +131,10 @@ class StudentModel:
         self.topic_proficiency=self.update_topic_proficiencies(self.topic_proficiency, self.subtopic_proficiency)
         print("\n-----------POST-UPDATE TOPIC PROFICIENCY----------")
         print(self.topic_proficiency)
+        print("\n-----------POST-UPDATE SUB TOPIC PROFICIENCY----------")
+        print(self.subtopic_proficiency)
+
+        
 
     def Elo_update_student_proficiency(self, paper, response, topic_section_mapping):
         self.difficulty = {1: 0.33, 2: 0.67, 3: 0.99}
@@ -158,7 +162,7 @@ class StudentModel:
                     self.subtopic_proficiency[topic][sub_topic] = updated_skill
         self.topic_proficiency = self.update_topic_proficiencies(
             self.topic_proficiency, self.subtopic_proficiency)
-        print("\n-----------POST-UPDATE TOPIC PROFICIENCY----------")
+        print("\n-----------POST-UPDATE ELO TOPIC PROFICIENCY----------")
         print(self.topic_proficiency)
 
     def Logistic_Function_2(self, difficulty, skill):
