@@ -21,8 +21,8 @@ class MainProgram:
         self.paper_generator.print_paper(paper)
 
         #student responds to paper and paper is evalutated
-        response=self.student_model.generate_response(paper)
-        checked_paper=self.evaluate.check_paper(response)
+        response = self.student_model.generate_response(paper)
+        checked_paper = self.evaluate.check_paper(response, paper)
         
         #based on evalutation student's topic and sub-topic proficiencies are updated. 
         current_student_ability=self.student_model.Q_generate_new_proficiencies(checked_paper,paper)
