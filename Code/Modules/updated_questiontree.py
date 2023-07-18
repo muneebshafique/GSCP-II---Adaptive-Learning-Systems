@@ -1,5 +1,6 @@
 import sqlite3
 import pandas as pd
+import random
 
 # db_conn = sqlite3.connect("updated_questiontree.db")
 # cursor = db_conn.cursor()
@@ -40,6 +41,7 @@ import pandas as pd
 #     QuestionName TEXT,
 #     QuestionNumber TEXT,
 #     Diff_Level INTEGER,
+#     ANSWER TEXT,
 #     SubTopicID INTEGER,
 #     PRIMARY KEY(QuestionID)
 #     FOREIGN KEY(SubTopicID) REFERENCES SubTopic(SubTopicID)
@@ -51,11 +53,11 @@ import pandas as pd
 # db_conn.close()
 
 
-# # ############# INSERTING DIRECTLY FROM CSV FILE #############
-# df = pd.read_csv("../Database/Olevels Physics Data (2023-2025).csv")
+# # # ############# INSERTING DIRECTLY FROM CSV FILE #############
+# df = pd.read_csv("C:/Users/LAIBA/Downloads/GSCP-II---Adaptive-Learning-Systems-main (1)/GSCP-II---Adaptive-Learning-Systems-main/Code/Database/Olevels Physics Data (2023-2025).csv")
 
 
-# # ########### INSERTING DATA INTO SECTION TABLE ###########
+# # # ########### INSERTING DATA INTO SECTION TABLE ###########
 
 # def insert_section():
 #     sections = df["Section"].unique()
@@ -74,7 +76,7 @@ import pandas as pd
 
 # insert_section()
 
-# ############## INSERTING DATA INTO TOPIC TABLE ##########
+# # ############## INSERTING DATA INTO TOPIC TABLE ##########
 
 
 # def insert_topic():
@@ -101,7 +103,7 @@ import pandas as pd
 # insert_topic()
 
 
-# ############## INSERTING DATA INTO SUB-TOPIC TABLE ##########
+# # ############## INSERTING DATA INTO SUB-TOPIC TABLE ##########
 
 # def insert_subtopic(topic, subtop_arr, count, subtopic_exist):
 #     db_conn = sqlite3.connect("updated_questiontree.db")
@@ -137,13 +139,14 @@ import pandas as pd
 #         else:
 #             count = insert_subtopic(t, subtopics, count, False)
 
-# ########## INSERTING DATA INTO QUESTION TABLE #############
+# # ########## INSERTING DATA INTO QUESTION TABLE #############
 
-# def insert_question(question_number, question_text, difficulty_level, subtopic_id):
+
+# def insert_question(question_number, question_text, difficulty_level, subtopic_id, answer):
 #     db_conn = sqlite3.connect("updated_questiontree.db")
 #     cursor = db_conn.cursor()
-#     cursor.execute('INSERT INTO Question (QuestionNumber, QuestionName, Diff_Level, SubTopicID) VALUES (?, ?, ?, ?)',
-#                    (question_number, question_text, difficulty_level, subtopic_id))
+#     cursor.execute('INSERT INTO Question (QuestionNumber, QuestionName, Diff_Level, SubTopicID, ANSWER) VALUES (?, ?, ?, ?, ?)',
+#                    (question_number, question_text, difficulty_level, subtopic_id, answer))
 #     question_id = cursor.lastrowid
 #     db_conn.commit()
 #     db_conn.close()
@@ -158,64 +161,71 @@ import pandas as pd
 # topics = cursor.fetchall()
 # for ids in topics:
 #     sub_id = ids[0]
+#     arr1 = []
+#     for x in range(3):
+#         randomUpperLetter = chr(random.randint(ord('A'), ord('D')))
+#         arr1.append(randomUpperLetter)  # random Answers.
+
 #     for i in range(1, 11):
 #         # 10 for easy
-#         insert_question(f'Q{i}', f'Question {i}/o/n/20anything', 1, sub_id)
+#         insert_question(
+#             f'Q{i}', f'Question {i}/o/n/20anything', 1, sub_id, arr1[0])
 
 #     for i in range(1, 11):
 #         insert_question(f'Q{i}', f'Question {i}/o/n/20anything',
-#                         2, sub_id)  # 10 for moderate
+#                         2, sub_id, arr1[1])  # 10 for moderate
 
 #     for i in range(1, 11):
 #         insert_question(f'Q{i}', f'Question {i}/o/n/20anything',
-#                         3, sub_id)  # 10 for hard
+#                         3, sub_id, arr1[2])  # 10 for hard
 
 # db_conn.commit()
 # db_conn.close()
 
 
-###################### PRINTING TABLES #########################
+# ###################### PRINTING TABLES #########################
 
-# Printing sections Table:
+# # Printing sections Table:
 # print("SECTION TABLE")
-db_conn = sqlite3.connect("updated_questiontree.db")
-cursor = db_conn.cursor()
-cursor.execute('''
-    SELECT * FROM Section
-''',)
-sections = cursor.fetchall()
+# db_conn = sqlite3.connect("updated_questiontree.db")
+# cursor = db_conn.cursor()
+# cursor.execute('''
+#     SELECT * FROM Section
+# ''',)
+# sections = cursor.fetchall()
 # print(sections)
 
-db_conn.commit()
-db_conn.close()
+# db_conn.commit()
+# db_conn.close()
 
-# Printing Topic Table:
+# # Printing Topic Table:
 # print("TOPIC TABLE")
-db_conn = sqlite3.connect("updated_questiontree.db")
-cursor = db_conn.cursor()
-cursor.execute('''
-    SELECT * FROM Topic
-''',)
-topics = cursor.fetchall()
+# db_conn = sqlite3.connect("updated_questiontree.db")
+# cursor = db_conn.cursor()
+# cursor.execute('''
+#     SELECT * FROM Topic
+# ''',)
+# topics = cursor.fetchall()
 # print(topics)
 
-db_conn.commit()
-db_conn.close()
+# db_conn.commit()
+# db_conn.close()
 
-# Printing SubTopic Table:
+# # Printing SubTopic Table:
 # print("SUB TOPIC TABLE")
-db_conn = sqlite3.connect("updated_questiontree.db")
-cursor = db_conn.cursor()
-cursor.execute('''
-    SELECT * FROM SubTopic
-''',)
-topics = cursor.fetchall()
+# db_conn = sqlite3.connect("updated_questiontree.db")
+# cursor = db_conn.cursor()
+# cursor.execute('''
+#     SELECT * FROM SubTopic
+# ''',)
+# topics = cursor.fetchall()
 # print(topics)
 
-db_conn.commit()
-db_conn.close()
+# db_conn.commit()
+# db_conn.close()
 
-# Printing Question Table
+# # Printing Question Table
+# print("QS TABLE")
 # db_conn = sqlite3.connect("updated_questiontree.db")
 # cursor = db_conn.cursor()
 # cursor.execute('''
@@ -227,25 +237,25 @@ db_conn.close()
 # db_conn.commit()
 # db_conn.close()
 
-print(' ')
+# print(' ')
 
 
-def get_question(topic_id, subtopic_id, difficulty_level):
-    db_conn = sqlite3.connect("updated_questiontree.db")
-    cursor = db_conn.cursor()
-    cursor.execute('''
-        SELECT QuestionID, QuestionNumber, QuestionName
-        FROM Question
-        WHERE SubTopicID = ? AND Diff_Level = ?
-        AND SubTopicID IN (
-            SELECT SubTopicID
-            FROM SubTopic
-            WHERE TopicID = ?
-        )
-    ''', (subtopic_id, difficulty_level, topic_id))
-    question = cursor.fetchall()
-    db_conn.close()
-    return question if question else None
+# def get_question(topic_id, subtopic_id, difficulty_level):
+#     db_conn = sqlite3.connect("updated_questiontree.db")
+#     cursor = db_conn.cursor()
+#     cursor.execute('''
+#         SELECT QuestionID, QuestionNumber, QuestionName
+#         FROM Question
+#         WHERE SubTopicID = ? AND Diff_Level = ?
+#         AND SubTopicID IN (
+#             SELECT SubTopicID
+#             FROM SubTopic
+#             WHERE TopicID = ?
+#         )
+#     ''', (subtopic_id, difficulty_level, topic_id))
+#     question = cursor.fetchall()
+#     db_conn.close()
+#     return question if question else None
 
 
 # question = get_question(1, 1, 1)
