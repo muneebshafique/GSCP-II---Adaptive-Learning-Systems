@@ -117,7 +117,8 @@ class StudentModel:
         return record
 
     #Updates student topic and sub-topic proficiency
-    def Q_update_student_proficiency(self, student_ability,topic_section_mapping):
+    def Q_update_student_proficiency(self, response,paper, topic_section_mapping):
+        student_ability=self.Q_generate_new_proficiencies(response, paper)
         for topic_subtopic, details in student_ability.items():
             num_correct_attempts,num_total_attempts=details[0],details[1]
             topic_proficiency= num_correct_attempts/num_total_attempts

@@ -16,19 +16,19 @@ class MainProgram:
         self.evaluate = Evaluation()
 
     def run(self):
-        #generates and prints paper
-        paper=self.paper_generator.generate_paper()
+        #generates and prints paper and its information
+        paper,paper_info=self.paper_generator.generate_paper()
         self.paper_generator.print_paper(paper)
+        self.paper_generator.print_paper_info(paper_info)
 
         #student responds to paper and paper is evalutated
-        response = self.student_model.generate_response(paper)
-        checked_paper = self.evaluate.check_paper(response, paper)
+        response = self.student_model.generate_response(paper_info)
+        checked_paper = self.evaluate.check_paper(response, paper_info)
         
-        #based on evalutation student's topic and sub-topic proficiencies are updated. 
-        current_student_ability=self.student_model.Q_generate_new_proficiencies(checked_paper,paper)
-        self.student_model.Q_update_student_proficiency(current_student_ability,self.knowledge_base.topic_section_mapping)
-
-        # Option number 2 based on Elo rating system.
+        #based on evalutation student's topic and sub-topic proficiencies are updated.
+        #   (Q_matrix)
+        self.student_model.Q_update_student_proficiency(checked_paper,paper_info,self.knowledge_base.topic_section_mapping)
+        #   Elo rating system.
         # self.student_model.Elo_update_student_proficiency(paper, checked_paper, self.knowledge_base.topic_section_mapping)
 
        
