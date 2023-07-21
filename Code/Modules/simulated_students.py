@@ -8,7 +8,8 @@ import random
 class Good_Simulated_Student:
     def __init__(self):
         # change your path here.
-        filename = "C:/Users/LAIBA/Downloads/GSCP-II---Adaptive-Learning-Systems-main (1)/GSCP-II---Adaptive-Learning-Systems-main/Code/Database/Olevels Physics Data (2023-2025).csv"
+        # filename = "C:/Users/LAIBA/Downloads/GSCP-II---Adaptive-Learning-Systems-main (1)/GSCP-II---Adaptive-Learning-Systems-main/Code/Database/Olevels Physics Data (2023-2025).csv"
+        filename ="../Database/Olevels Physics Data (2023-2025).csv"
         self.student_model = StudentModel()
         self.knowledge_base = KnowledgeBase()
 
@@ -46,8 +47,8 @@ class Good_Simulated_Student:
 
 # Generate a paper in which the student performs correctly:
 
-# program = Good_Simulated_Student()
-# program.run()
+program = Good_Simulated_Student()
+program.run()
 
 
 class Bad_Simulated_Student:

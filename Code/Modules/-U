@@ -1,0 +1,151 @@
+Collecting catsim
+  Using cached catsim-0.17.2-py3-none-any.whl (32 kB)
+Collecting scipy (from catsim)
+  Using cached scipy-1.10.1-cp38-cp38-macosx_10_9_x86_64.whl (35.0 MB)
+Collecting numexpr (from catsim)
+  Using cached numexpr-2.8.4-cp38-cp38-macosx_10_9_x86_64.whl (99 kB)
+Collecting matplotlib (from catsim)
+  Obtaining dependency information for matplotlib from https://files.pythonhosted.org/packages/b2/b6/c6596fbc30899e6da31450053054d7da61a21a3f510544fb7cb7658a3de3/matplotlib-3.7.2-cp38-cp38-macosx_10_12_x86_64.whl.metadata
+  Downloading matplotlib-3.7.2-cp38-cp38-macosx_10_12_x86_64.whl.metadata (5.6 kB)
+Collecting scikit-learn (from catsim)
+  Obtaining dependency information for scikit-learn from https://files.pythonhosted.org/packages/33/cb/0e41fad5b30fd66925e47952ddc720d078bdfd8397584a4873ec1cf590ca/scikit_learn-1.3.0-cp38-cp38-macosx_10_9_x86_64.whl.metadata
+  Downloading scikit_learn-1.3.0-cp38-cp38-macosx_10_9_x86_64.whl.metadata (11 kB)
+Collecting json-tricks (from catsim)
+  Obtaining dependency information for json-tricks from https://files.pythonhosted.org/packages/aa/94/f17cf10cb92bd5718068f55b387402523b2569248b03f50ad2cac6379c68/json_tricks-3.17.1-py2.py3-none-any.whl.metadata
+  Downloading json_tricks-3.17.1-py2.py3-none-any.whl.metadata (17 kB)
+Collecting tqdm (from catsim)
+  Using cached tqdm-4.65.0-py3-none-any.whl (77 kB)
+Collecting numpy (from catsim)
+  Obtaining dependency information for numpy from https://files.pythonhosted.org/packages/11/10/943cfb579f1a02909ff96464c69893b1d25be3731b5d3652c2e0cf1281ea/numpy-1.24.4-cp38-cp38-macosx_10_9_x86_64.whl.metadata
+  Downloading numpy-1.24.4-cp38-cp38-macosx_10_9_x86_64.whl.metadata (5.6 kB)
+Collecting contourpy>=1.0.1 (from matplotlib->catsim)
+  Obtaining dependency information for contourpy>=1.0.1 from https://files.pythonhosted.org/packages/ff/dd/5d44bc3a5993c25b75b7aef4f810ebd74ef9057dd2a4eab37eba240ee401/contourpy-1.1.0-cp38-cp38-macosx_10_9_x86_64.whl.metadata
+  Downloading contourpy-1.1.0-cp38-cp38-macosx_10_9_x86_64.whl.metadata (5.7 kB)
+Collecting cycler>=0.10 (from matplotlib->catsim)
+  Using cached cycler-0.11.0-py3-none-any.whl (6.4 kB)
+Collecting fonttools>=4.22.0 (from matplotlib->catsim)
+  Obtaining dependency information for fonttools>=4.22.0 from https://files.pythonhosted.org/packages/9d/31/e5d7b0f34c7e57c88d03dd2eb08bb90ea73cc47355162f49eab405503b87/fonttools-4.41.0-cp38-cp38-macosx_10_9_x86_64.whl.metadata
+  Downloading fonttools-4.41.0-cp38-cp38-macosx_10_9_x86_64.whl.metadata (149 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 149.4/149.4 kB 2.2 MB/s eta 0:00:00
+Collecting kiwisolver>=1.0.1 (from matplotlib->catsim)
+  Using cached kiwisolver-1.4.4-cp38-cp38-macosx_10_9_x86_64.whl (65 kB)
+Collecting packaging>=20.0 (from matplotlib->catsim)
+  Using cached packaging-23.1-py3-none-any.whl (48 kB)
+Collecting pillow>=6.2.0 (from matplotlib->catsim)
+  Obtaining dependency information for pillow>=6.2.0 from https://files.pythonhosted.org/packages/5a/29/aa1678cae507a480a6d75453c1de98940e5eb6bd8f0e8e8347ec29a4dfc0/Pillow-10.0.0-cp38-cp38-macosx_10_10_x86_64.whl.metadata
+  Downloading Pillow-10.0.0-cp38-cp38-macosx_10_10_x86_64.whl.metadata (9.5 kB)
+Collecting pyparsing<3.1,>=2.3.1 (from matplotlib->catsim)
+  Using cached pyparsing-3.0.9-py3-none-any.whl (98 kB)
+Collecting python-dateutil>=2.7 (from matplotlib->catsim)
+  Using cached python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+Collecting importlib-resources>=3.2.0 (from matplotlib->catsim)
+  Obtaining dependency information for importlib-resources>=3.2.0 from https://files.pythonhosted.org/packages/29/d1/bed03eca30aa05aaf6e0873de091f9385c48705c4a607c2dfe3edbe543e8/importlib_resources-6.0.0-py3-none-any.whl.metadata
+  Downloading importlib_resources-6.0.0-py3-none-any.whl.metadata (4.2 kB)
+Collecting joblib>=1.1.1 (from scikit-learn->catsim)
+  Obtaining dependency information for joblib>=1.1.1 from https://files.pythonhosted.org/packages/28/08/9dcdaa5aac4634e4c23af26d92121f7ce445c630efa0d3037881ae2407fb/joblib-1.3.1-py3-none-any.whl.metadata
+  Downloading joblib-1.3.1-py3-none-any.whl.metadata (5.4 kB)
+Collecting threadpoolctl>=2.0.0 (from scikit-learn->catsim)
+  Obtaining dependency information for threadpoolctl>=2.0.0 from https://files.pythonhosted.org/packages/81/12/fd4dea011af9d69e1cad05c75f3f7202cdcbeac9b712eea58ca779a72865/threadpoolctl-3.2.0-py3-none-any.whl.metadata
+  Downloading threadpoolctl-3.2.0-py3-none-any.whl.metadata (10.0 kB)
+Collecting zipp>=3.1.0 (from importlib-resources>=3.2.0->matplotlib->catsim)
+  Obtaining dependency information for zipp>=3.1.0 from https://files.pythonhosted.org/packages/8c/08/d3006317aefe25ea79d3b76c9650afabaf6d63d1c8443b236e7405447503/zipp-3.16.2-py3-none-any.whl.metadata
+  Using cached zipp-3.16.2-py3-none-any.whl.metadata (3.7 kB)
+Collecting six>=1.5 (from python-dateutil>=2.7->matplotlib->catsim)
+  Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Using cached json_tricks-3.17.1-py2.py3-none-any.whl (27 kB)
+Using cached matplotlib-3.7.2-cp38-cp38-macosx_10_12_x86_64.whl (7.4 MB)
+Using cached numpy-1.24.4-cp38-cp38-macosx_10_9_x86_64.whl (19.8 MB)
+Using cached scikit_learn-1.3.0-cp38-cp38-macosx_10_9_x86_64.whl (10.1 MB)
+Using cached contourpy-1.1.0-cp38-cp38-macosx_10_9_x86_64.whl (243 kB)
+Using cached fonttools-4.41.0-cp38-cp38-macosx_10_9_x86_64.whl (2.1 MB)
+Using cached importlib_resources-6.0.0-py3-none-any.whl (31 kB)
+Using cached joblib-1.3.1-py3-none-any.whl (301 kB)
+Using cached Pillow-10.0.0-cp38-cp38-macosx_10_10_x86_64.whl (3.4 MB)
+Using cached threadpoolctl-3.2.0-py3-none-any.whl (15 kB)
+Using cached zipp-3.16.2-py3-none-any.whl (7.2 kB)
+Installing collected packages: json-tricks, zipp, tqdm, threadpoolctl, six, pyparsing, pillow, packaging, numpy, kiwisolver, joblib, fonttools, cycler, scipy, python-dateutil, numexpr, importlib-resources, contourpy, scikit-learn, matplotlib, catsim
+  Attempting uninstall: json-tricks
+    Found existing installation: json-tricks 3.17.1
+    Uninstalling json-tricks-3.17.1:
+      Successfully uninstalled json-tricks-3.17.1
+  Attempting uninstall: zipp
+    Found existing installation: zipp 3.16.2
+    Uninstalling zipp-3.16.2:
+      Successfully uninstalled zipp-3.16.2
+  Attempting uninstall: tqdm
+    Found existing installation: tqdm 4.65.0
+    Uninstalling tqdm-4.65.0:
+      Successfully uninstalled tqdm-4.65.0
+  Attempting uninstall: threadpoolctl
+    Found existing installation: threadpoolctl 3.2.0
+    Uninstalling threadpoolctl-3.2.0:
+      Successfully uninstalled threadpoolctl-3.2.0
+  Attempting uninstall: six
+    Found existing installation: six 1.16.0
+    Uninstalling six-1.16.0:
+      Successfully uninstalled six-1.16.0
+  Attempting uninstall: pyparsing
+    Found existing installation: pyparsing 3.0.9
+    Uninstalling pyparsing-3.0.9:
+      Successfully uninstalled pyparsing-3.0.9
+  Attempting uninstall: pillow
+    Found existing installation: Pillow 10.0.0
+    Uninstalling Pillow-10.0.0:
+      Successfully uninstalled Pillow-10.0.0
+  Attempting uninstall: packaging
+    Found existing installation: packaging 23.1
+    Uninstalling packaging-23.1:
+      Successfully uninstalled packaging-23.1
+  Attempting uninstall: numpy
+    Found existing installation: numpy 1.24.4
+    Uninstalling numpy-1.24.4:
+      Successfully uninstalled numpy-1.24.4
+  Attempting uninstall: kiwisolver
+    Found existing installation: kiwisolver 1.4.4
+    Uninstalling kiwisolver-1.4.4:
+      Successfully uninstalled kiwisolver-1.4.4
+  Attempting uninstall: joblib
+    Found existing installation: joblib 1.3.1
+    Uninstalling joblib-1.3.1:
+      Successfully uninstalled joblib-1.3.1
+  Attempting uninstall: fonttools
+    Found existing installation: fonttools 4.41.0
+    Uninstalling fonttools-4.41.0:
+      Successfully uninstalled fonttools-4.41.0
+  Attempting uninstall: cycler
+    Found existing installation: cycler 0.11.0
+    Uninstalling cycler-0.11.0:
+      Successfully uninstalled cycler-0.11.0
+  Attempting uninstall: scipy
+    Found existing installation: scipy 1.10.1
+    Uninstalling scipy-1.10.1:
+      Successfully uninstalled scipy-1.10.1
+  Attempting uninstall: python-dateutil
+    Found existing installation: python-dateutil 2.8.2
+    Uninstalling python-dateutil-2.8.2:
+      Successfully uninstalled python-dateutil-2.8.2
+  Attempting uninstall: numexpr
+    Found existing installation: numexpr 2.8.4
+    Uninstalling numexpr-2.8.4:
+      Successfully uninstalled numexpr-2.8.4
+  Attempting uninstall: importlib-resources
+    Found existing installation: importlib-resources 6.0.0
+    Uninstalling importlib-resources-6.0.0:
+      Successfully uninstalled importlib-resources-6.0.0
+  Attempting uninstall: contourpy
+    Found existing installation: contourpy 1.1.0
+    Uninstalling contourpy-1.1.0:
+      Successfully uninstalled contourpy-1.1.0
+  Attempting uninstall: scikit-learn
+    Found existing installation: scikit-learn 1.3.0
+    Uninstalling scikit-learn-1.3.0:
+      Successfully uninstalled scikit-learn-1.3.0
+  Attempting uninstall: matplotlib
+    Found existing installation: matplotlib 3.7.2
+    Uninstalling matplotlib-3.7.2:
+      Successfully uninstalled matplotlib-3.7.2
+  Attempting uninstall: catsim
+    Found existing installation: catsim 0.17.2
+    Uninstalling catsim-0.17.2:
+      Successfully uninstalled catsim-0.17.2
+Successfully installed catsim-0.17.2 contourpy-1.1.0 cycler-0.11.0 fonttools-4.41.0 importlib-resources-6.0.0 joblib-1.3.1 json-tricks-3.17.1 kiwisolver-1.4.4 matplotlib-3.7.2 numexpr-2.8.4 numpy-1.24.4 packaging-23.1 pillow-10.0.0 pyparsing-3.0.9 python-dateutil-2.8.2 scikit-learn-1.3.0 scipy-1.10.1 six-1.16.0 threadpoolctl-3.2.0 tqdm-4.65.0 zipp-3.16.2
