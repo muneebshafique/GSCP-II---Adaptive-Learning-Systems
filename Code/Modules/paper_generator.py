@@ -20,6 +20,7 @@ class PaperGenerator():
 
 
     # fetches questions from database
+    # problem : Picking same questions if more qs are coming from a topic/subtopic.
     def get_question(self, topic_name, subtopic_name, difficulty_level):
         db_conn = sqlite3.connect("updated_questiontree.db")
         cursor =db_conn.cursor()
