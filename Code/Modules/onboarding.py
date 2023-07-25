@@ -74,6 +74,9 @@ class Catsim:
         self.administered_items.append(item_index)
         self.responses.append(response)
 
+
+# -----------------------------
+
 cat=Catsim()
 cat.generate_question_bank()
 cat.initialize_examinee_proficiency()
