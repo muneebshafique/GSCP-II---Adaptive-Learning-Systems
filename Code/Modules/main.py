@@ -2,20 +2,27 @@ from student_model import StudentModel
 from knowledge_base import KnowledgeBase
 from evaluation import Evaluation
 from paper_generator import PaperGenerator
+from student_initial_testing import Student_onboarding
 
 
 class MainProgram:
     def __init__(self):
         filename ="../Database/Olevels Physics Data (2023-2025).csv"
-        self.student_model = StudentModel()
         self.knowledge_base = KnowledgeBase()
-
         self.knowledge_base.initialize_syllabus(filename)
+
+        self.student_initial = Student_onboarding(self.knowledge_base.syllabus)
+        self.student_initial.generate_initial_prof()
+        self.student_model = StudentModel(self.student_initial.topic_proficiency,self.student_initial.subtopic_proficiency)
+        
         self.paper_generator = PaperGenerator(filename,self.knowledge_base, self.student_model)
 
         self.evaluate = Evaluation()
 
     def run(self):
+        
+        
+
         #generates and prints paper and its information
         paper,paper_info=self.paper_generator.generate_paper()
         self.paper_generator.print_paper(paper)

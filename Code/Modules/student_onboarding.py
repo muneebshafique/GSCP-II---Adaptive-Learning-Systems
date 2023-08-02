@@ -74,6 +74,7 @@ class Catsim:
 def get_proficiency(topic, subtopic):
     cat = Catsim()
     cat.generate_question_bank()
+
     for i in range(50):
         cat.update_proficiency()
         test_end = cat.is_test_end()

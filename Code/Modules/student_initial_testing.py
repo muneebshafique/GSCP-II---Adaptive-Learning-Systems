@@ -44,6 +44,7 @@ class Student_onboarding:
         return top_prof, subtop
 
     def generate_initial_prof(self):
+        print("------INITIAL TESTING IN PROGRESS------")
         for sec in self.syllabus:
             topics = {}
             for topic in self.syllabus[sec]:
@@ -57,13 +58,17 @@ class Student_onboarding:
                     self.subtopic_proficiency[topic] = subtop
                 topics[topic] = proficiency_top
             self.topic_proficiency[sec] = topics
-
+        
+        print("--------Initial topic proficiency---------")
+        print(self.topic_proficiency)
+        print("--------Initial subtopic proficiency---------")
+        print(self.subtopic_proficiency)
 
 # change file path here.
-filename = '../Database/Olevels Physics Data (2023-2025).csv'
-kb = KnowledgeBase()
-kb.initialize_syllabus(filename)
-student = Student_onboarding(kb.syllabus)
-student.generate_initial_prof()
-print(student.topic_proficiency)
-print(student.subtopic_proficiency)
+# filename = '../Database/Olevels Physics Data (2023-2025).csv'
+# kb = KnowledgeBase()
+# kb.initialize_syllabus(filename)
+# student = Student_onboarding(kb.syllabus)
+# student.generate_initial_prof()
+# print(student.topic_proficiency)
+# print(student.subtopic_proficiency)
