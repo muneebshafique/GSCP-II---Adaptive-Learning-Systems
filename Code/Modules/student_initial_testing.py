@@ -60,7 +60,7 @@ class Student_onboarding:
 
 
 # change file path here.
-filename = 'C:/Users/LAIBA/Desktop/GSCP-II---Adaptive-Learning-Systems-main/Code/Database/Olevels Physics Data (2023-2025).csv'
+filename = '../Database/Olevels Physics Data (2023-2025).csv'
 kb = KnowledgeBase()
 kb.initialize_syllabus(filename)
 student = Student_onboarding(kb.syllabus)
