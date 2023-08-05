@@ -80,17 +80,22 @@ class Catsim:
 cat=Catsim()
 cat.generate_question_bank()
 cat.initialize_examinee_proficiency()
-cat.ask_initial_question_receive_response()
+#cat.ask_initial_question_receive_response()
+# item_index=cat.select_next_item()
+# response=cat.simulate_response(item_index)
+# cat.update_items_and_responses(item_index, response)
 
 
 for i in range(50):
     print("\n--------ITERATION:",i,"--------")
-    cat.update_proficiency()
     test_end=cat.is_test_end()
     if test_end == False:
+        # Generate question based on estimated proficiency.
+        # Update estimated proficiency based on response.
         item_index=cat.select_next_item()
         response=cat.simulate_response(item_index)
         cat.update_items_and_responses(item_index, response)
+        cat.update_proficiency()
     else:
         print("----- TEST ENDED------")
         print("FINAL PROFICIENCY",cat.est_theta)

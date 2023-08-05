@@ -4,6 +4,7 @@ from catsim.initialization import *
 from catsim.selection import *
 from catsim.estimation import *
 from catsim.stopping import *
+from catsim.irt import icc
 
 import random
 import matplotlib.pyplot as plt
@@ -12,15 +13,15 @@ from evaluation import *
 
 class Catsim:
     def __init__(self) -> None:
-        self.administered_items = [150]
+        self.administered_items = [10]
         self.responses = [True]
-        self.bank_size = 500
+        self.bank_size = 50
         self.initializer = FixedPointInitializer(0)
         self.selector = UrrySelector()
         self.estimator = NumericalSearchEstimator()
         self.stopper = MinErrorStopper(.5)
         # Assuming the student started off with 0 knowledge.
-        self.est_theta = 0
+        self.est_theta = self.initializer.initialize()
         self.eval = Evaluation()
 
     def generate_question_bank(self):
@@ -43,7 +44,7 @@ class Catsim:
             items=self.items, administered_items=self.administered_items, est_theta=self.est_theta)
         return item_index
 
-    def simulate_response(self, item_index, topic, subtopic):
+    def simulate_random_response(self, item_index, topic, subtopic):
         # b is the difficulty.
         a, b, c, d = self.items[item_index]
         # Easy qs.
@@ -66,6 +67,17 @@ class Catsim:
         # print(correct_answer, student_answer)
         return correct
 
+    def simulate_response(self, item_index):
+        true_theta = 1
+        a, b, c, d = self.items[item_index]
+        prob = icc(true_theta, a, b, c, d)
+        correct = prob > random.uniform(0, 1)
+
+        # print('Probability to correctly answer item:', prob)
+        # print('Did the user answer the selected item correctly?', correct)
+
+        return correct
+
     def update_items_and_responses(self, item_index, response):
         self.administered_items.append(item_index)
         self.responses.append(response)
@@ -80,7 +92,8 @@ def get_proficiency(topic, subtopic):
         test_end = cat.is_test_end()
         if test_end == False:
             item_index = cat.select_next_item()
-            response = cat.simulate_response(item_index, topic, subtopic)
+            # response = cat.simulate_random_response(item_index, topic, subtopic)
+            response = cat.simulate_response(item_index)
             cat.update_items_and_responses(item_index, response)
         else:
             print("Test ended for", topic, "in", i, "iterations.")
