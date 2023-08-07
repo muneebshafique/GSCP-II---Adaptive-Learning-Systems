@@ -43,6 +43,7 @@ import random
 #     Diff_Level INTEGER,
 #     ANSWER TEXT,
 #     SubTopicID INTEGER,
+#     Diff_Val FLOAT,
 #     PRIMARY KEY(QuestionID)
 #     FOREIGN KEY(SubTopicID) REFERENCES SubTopic(SubTopicID)
 #     )
@@ -54,7 +55,8 @@ import random
 
 
 # # # ############# INSERTING DIRECTLY FROM CSV FILE #############
-# df = pd.read_csv("C:/Users/LAIBA/Downloads/GSCP-II---Adaptive-Learning-Systems-main (1)/GSCP-II---Adaptive-Learning-Systems-main/Code/Database/Olevels Physics Data (2023-2025).csv")
+# df = pd.read_csv(
+#     "C:/Users/LAIBA/Desktop/GSCP-II---Adaptive-Learning-Systems-main/Code/Database/Olevels Physics Data (2023-2025).csv")
 
 
 # # # ########### INSERTING DATA INTO SECTION TABLE ###########
@@ -142,11 +144,11 @@ import random
 # # ########## INSERTING DATA INTO QUESTION TABLE #############
 
 
-# def insert_question(question_number, question_text, difficulty_level, subtopic_id, answer):
+# def insert_question(question_number, question_text, difficulty_level, subtopic_id, answer, rand_diff):
 #     db_conn = sqlite3.connect("updated_questiontree.db")
 #     cursor = db_conn.cursor()
-#     cursor.execute('INSERT INTO Question (QuestionNumber, QuestionName, Diff_Level, SubTopicID, ANSWER) VALUES (?, ?, ?, ?, ?)',
-#                    (question_number, question_text, difficulty_level, subtopic_id, answer))
+#     cursor.execute('INSERT INTO Question (QuestionNumber, QuestionName, Diff_Level, SubTopicID, ANSWER, Diff_Val) VALUES (?, ?, ?, ?, ?, ?)',
+#                    (question_number, question_text, difficulty_level, subtopic_id, answer, rand_diff))
 #     question_id = cursor.lastrowid
 #     db_conn.commit()
 #     db_conn.close()
@@ -168,16 +170,19 @@ import random
 
 #     for i in range(1, 11):
 #         # 10 for easy
+#         rand_diff = random.uniform(0.000001, 0.33)
 #         insert_question(
-#             f'Q{i}', f'Question {i}/o/n/20anything', 1, sub_id, arr1[0])
+#             f'Q{i}', f'Question {i}/o/n/20anything', 1, sub_id, arr1[0], rand_diff)
 
 #     for i in range(1, 11):
+#         rand_diff = random.uniform(0.330001, 0.67)
 #         insert_question(f'Q{i}', f'Question {i}/o/n/20anything',
-#                         2, sub_id, arr1[1])  # 10 for moderate
+#                         2, sub_id, arr1[1], rand_diff)  # 10 for moderate
 
 #     for i in range(1, 11):
+#         rand_diff = random.uniform(0.670001, 1.0)
 #         insert_question(f'Q{i}', f'Question {i}/o/n/20anything',
-#                         3, sub_id, arr1[2])  # 10 for hard
+#                         3, sub_id, arr1[2], rand_diff)  # 10 for hard
 
 # db_conn.commit()
 # db_conn.close()
