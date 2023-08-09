@@ -54,12 +54,12 @@ import random
 # db_conn.close()
 
 
-# # # ############# INSERTING DIRECTLY FROM CSV FILE #############
+# # # # ############# INSERTING DIRECTLY FROM CSV FILE #############
 # df = pd.read_csv(
-#     "C:/Users/LAIBA/Desktop/GSCP-II---Adaptive-Learning-Systems-main/Code/Database/Olevels Physics Data (2023-2025).csv")
+#     "../Database/Olevels Physics Data (2023-2025).csv")
 
 
-# # # ########### INSERTING DATA INTO SECTION TABLE ###########
+# # # # ########### INSERTING DATA INTO SECTION TABLE ###########
 
 # def insert_section():
 #     sections = df["Section"].unique()
@@ -78,7 +78,7 @@ import random
 
 # insert_section()
 
-# # ############## INSERTING DATA INTO TOPIC TABLE ##########
+# # # ############## INSERTING DATA INTO TOPIC TABLE ##########
 
 
 # def insert_topic():
@@ -105,7 +105,7 @@ import random
 # insert_topic()
 
 
-# # ############## INSERTING DATA INTO SUB-TOPIC TABLE ##########
+# # # ############## INSERTING DATA INTO SUB-TOPIC TABLE ##########
 
 # def insert_subtopic(topic, subtop_arr, count, subtopic_exist):
 #     db_conn = sqlite3.connect("updated_questiontree.db")
@@ -141,7 +141,7 @@ import random
 #         else:
 #             count = insert_subtopic(t, subtopics, count, False)
 
-# # ########## INSERTING DATA INTO QUESTION TABLE #############
+# # # ########## INSERTING DATA INTO QUESTION TABLE #############
 
 
 # def insert_question(question_number, question_text, difficulty_level, subtopic_id, answer, rand_diff):
@@ -188,9 +188,9 @@ import random
 # db_conn.close()
 
 
-# ###################### PRINTING TABLES #########################
+###################### PRINTING TABLES #########################
 
-# # Printing sections Table:
+# Printing sections Table:
 # print("SECTION TABLE")
 # db_conn = sqlite3.connect("updated_questiontree.db")
 # cursor = db_conn.cursor()
@@ -203,7 +203,7 @@ import random
 # db_conn.commit()
 # db_conn.close()
 
-# # Printing Topic Table:
+# Printing Topic Table:
 # print("TOPIC TABLE")
 # db_conn = sqlite3.connect("updated_questiontree.db")
 # cursor = db_conn.cursor()
@@ -216,7 +216,7 @@ import random
 # db_conn.commit()
 # db_conn.close()
 
-# # Printing SubTopic Table:
+# Printing SubTopic Table:
 # print("SUB TOPIC TABLE")
 # db_conn = sqlite3.connect("updated_questiontree.db")
 # cursor = db_conn.cursor()
@@ -229,7 +229,7 @@ import random
 # db_conn.commit()
 # db_conn.close()
 
-# # Printing Question Table
+# Printing Question Table
 # print("QS TABLE")
 # db_conn = sqlite3.connect("updated_questiontree.db")
 # cursor = db_conn.cursor()

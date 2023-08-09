@@ -32,7 +32,7 @@ class MainProgram:
         
         #based on evalutation student's topic and sub-topic proficiencies are updated.
         #   (Q_matrix)
-        self.student_model.Q_update_student_proficiency(checked_paper,paper_info,self.knowledge_base.topic_section_mapping)
+        self.student_model.Q_update_student_proficiency(checked_paper,paper_info,self.knowledge_base.topic_section_mapping,paper)
         #   Elo rating system.
         # self.student_model.Elo_update_student_proficiency(paper, checked_paper, self.knowledge_base.topic_section_mapping)
 

@@ -3,6 +3,9 @@ import copy
 import knowledge_base
 import math
 from student_initial_testing import Student_onboarding
+import sqlite3
+import updated_questiontree
+
 
 MAX_PROFICIENCY = 10
 SIG_FIGURES=3
@@ -38,6 +41,29 @@ class StudentModel:
          
          # recalibrating topic proficiency for topics with sub-topics -- taking(avg)
         self.topic_proficiency=self.update_topic_proficiencies(self.topic_proficiency, self.subtopic_proficiency)
+
+    def get_diff_val(self,qs_id, topic_name, sub_topic_name):
+        db_conn = sqlite3.connect("updated_questiontree.db")
+        cursor = db_conn.cursor()
+        cursor.execute('''
+            SELECT Diff_Val FROM Question
+            WHERE QuestionID = ? 
+            AND SubTopicID = (
+                SELECT SubTopicID
+                FROM SubTopic
+                WHERE SubTopicName = ? 
+                AND TopicID = (
+                    SELECT TopicID 
+                    FROM Topic 
+                    WHERE TopicName = ?
+                )
+            )
+        ''', (qs_id, sub_topic_name, topic_name))
+        diff_val = cursor.fetchall()
+        diff = diff_val[0][0]
+        db_conn.close()
+        return diff
+
     
     # recalibrating topic proficiency for topics with sub-topics -- taking(avg)
     def update_topic_proficiencies(self, topic_proficiency, subtopic_proficiency):
@@ -68,12 +94,12 @@ class StudentModel:
                 pointer += normalized_prof
         return (normalized_proficiency_dict)
       
-    # randomly generates response for every question in the paper. 
-    def generate_response(self,paper):
+    # randomly generates response for every question in the paper_info. 
+    def generate_response(self,paper_info):
         self.response=[]
         options = ["A","B","C","D"]
         
-        for i in range (len(paper)):
+        for i in range (len(paper_info)):
             random_option = random.choice(options)
             self.response.append(random_option)
 
@@ -82,9 +108,9 @@ class StudentModel:
         return self.response
 
     # Generates new topic and subtopic proficiency based on student responses
-    def Q_generate_new_proficiencies(self,response, paper):
+    def Q_generate_new_proficiencies(self,response, paper_info,paper):
         # response = [1,0,0,1,0]
-        # paper={1: [("T1","None",1),("T2","None",1)],
+        # paper_info={1: [("T1","None",1),("T2","None",1)],
         # 2:[("T2","None",1),("T3","None",1)],
         # 3:[("T1","None",1),("T3","None",1)],
         # 4:[("T1","None",1)],
@@ -92,15 +118,17 @@ class StudentModel:
 
         student_ability={}
         for i in range (len(response)):
-            qs_info=paper[i+1]
+            qs_info=paper_info[i+1]
+        
             for topic_info in qs_info:
                 # print(topic_info)
+                qs_diff=self.get_diff_val(paper[i], topic_info[0], topic_info[1])
                 if (topic_info[0],topic_info[1]) not in student_ability:
                     student_ability[topic_info[0],topic_info[1]]=[0,0]
-                    updated_topic_record=self.Q_update_topic_record(student_ability[(topic_info[0],topic_info[1])],response[i])
+                    updated_topic_record=self.Q_update_topic_record(student_ability[(topic_info[0],topic_info[1])],response[i],qs_diff)
                     student_ability[(topic_info[0],topic_info[1])]=updated_topic_record
                 else:
-                    updated_topic_record=self.Q_update_topic_record(student_ability[(topic_info[0],topic_info[1])],response[i])
+                    updated_topic_record=self.Q_update_topic_record(student_ability[(topic_info[0],topic_info[1])],response[i],qs_diff)
                     student_ability[(topic_info[0],topic_info[1])]=updated_topic_record
         
         print("\n-------- STUDENT INFO FROM RESPONSES-------")
@@ -108,27 +136,27 @@ class StudentModel:
         return(student_ability)
 
     #helper function to Q_generate_new_proficiencies
-    def Q_update_topic_record(self,record, response):
-        num_correct_attempts,num_total_attempts=record[0], record[1]
+    def Q_update_topic_record(self,record, response,qs_diff):
+        correct_diff,total_diff=record[0], record[1]
         if response == 1:
-            num_correct_attempts+=1
-        num_total_attempts+=1
+            correct_diff+=qs_diff
+        total_diff+=qs_diff
 
-        record[0], record[1] = num_correct_attempts,num_total_attempts
+        record[0], record[1] = correct_diff,total_diff
 
         return record
 
     #Updates student topic and sub-topic proficiency
-    def Q_update_student_proficiency(self, response,paper, topic_section_mapping):
-        student_ability=self.Q_generate_new_proficiencies(response, paper)
+    def Q_update_student_proficiency(self, response,paper_info, topic_section_mapping,paper):
+        student_ability=self.Q_generate_new_proficiencies(response, paper_info,paper)
         for topic_subtopic, details in student_ability.items():
-            num_correct_attempts,num_total_attempts=details[0],details[1]
-            topic_proficiency= num_correct_attempts/num_total_attempts
+            correct_diff,total_diff=details[0],details[1]
+            topic_proficiency= correct_diff/total_diff
             if topic_subtopic[1]== "None":
                 section=topic_section_mapping[topic_subtopic[0]]
-                self.topic_proficiency[section][topic_subtopic[0]]=  ((topic_proficiency*num_total_attempts) +  (self.topic_proficiency[section][topic_subtopic[0]]*CATSIM_WEIGHTAGE))/(CATSIM_WEIGHTAGE+num_total_attempts)
+                self.topic_proficiency[section][topic_subtopic[0]]=  ((topic_proficiency*total_diff) +  (self.topic_proficiency[section][topic_subtopic[0]]*CATSIM_WEIGHTAGE))/(CATSIM_WEIGHTAGE+total_diff)
             else:
-                self.subtopic_proficiency[topic_subtopic[0]][topic_subtopic[1]]=  ((topic_proficiency*num_total_attempts) +  (self.subtopic_proficiency[topic_subtopic[0]][topic_subtopic[1]]*CATSIM_WEIGHTAGE))/(CATSIM_WEIGHTAGE+num_total_attempts)
+                self.subtopic_proficiency[topic_subtopic[0]][topic_subtopic[1]]=  ((topic_proficiency*total_diff) +  (self.subtopic_proficiency[topic_subtopic[0]][topic_subtopic[1]]*CATSIM_WEIGHTAGE))/(CATSIM_WEIGHTAGE+total_diff)
 
        
         self.topic_proficiency=self.update_topic_proficiencies(self.topic_proficiency, self.subtopic_proficiency)
@@ -139,10 +167,10 @@ class StudentModel:
 
         
 
-    def Elo_update_student_proficiency(self, paper, response, topic_section_mapping):
+    def Elo_update_student_proficiency(self, paper_info, response, topic_section_mapping):
         self.difficulty = {1: 0.33, 2: 0.67, 3: 0.99}
         for i in range(len(response)):
-            qs_info = paper[i+1]
+            qs_info = paper_info[i+1]
             for topic_info in qs_info:
                 topic, sub_topic, difficulty = topic_info[0], topic_info[1], topic_info[2]
                 difficulty_in_dec = self.difficulty[difficulty]

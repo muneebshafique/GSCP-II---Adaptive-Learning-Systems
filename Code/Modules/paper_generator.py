@@ -25,16 +25,24 @@ class PaperGenerator():
         db_conn = sqlite3.connect("updated_questiontree.db")
         cursor =db_conn.cursor()
         cursor.execute('''
-        SELECT q.QuestionID, q.QuestionName, q.QuestionNumber, q.Diff_Level
+        SELECT q.QuestionID, q.QuestionName, q.QuestionNumber, q.Diff_Level, q.Diff_Val
         FROM Question q
         INNER JOIN SubTopic st ON q.SubTopicID = st.SubTopicID
         INNER JOIN Topic t ON st.TopicID = t.TopicID
-        WHERE t.TopicName = ? AND st.SubTopicName = ? AND q.Diff_Level = ?
+        WHERE t.TopicName = ? AND st.SubTopicName = ? AND q.Diff_Level = ? 
     ''', (topic_name, subtopic_name, difficulty_level))
 
         question_rows = cursor.fetchall()
-        random_question = random.choice(question_rows)
-        return(random_question[0])
+        # print(question_rows)
+        sorted_list_question = sorted(question_rows, key=lambda x: x[4])
+        # random_question = random.choice(question_rows)
+        question = sorted_list_question[-1]
+        i=-2
+        while question[0] in self.paper:
+            question=sorted_list_question[i]
+            i-=1
+
+        return(question[0])
    
         db_conn.close()
 
@@ -42,7 +50,7 @@ class PaperGenerator():
     
     #picks topics and subtopics based on user proficiency 
     def generate_paper(self,):
-        paper=[]
+        self.paper=[]
         paper_info={}
         qs_num = 1
 
@@ -67,7 +75,7 @@ class PaperGenerator():
                                     paper_info[qs_num].append((selected_topic,selected_subtopic,qs_difficulty))
                                     # print(selected_topic,selected_subtopic,qs_difficulty)
                                     actual_qs=self.get_question(selected_topic, selected_subtopic, qs_difficulty)
-                                    paper.append(actual_qs)
+                                    self.paper.append(actual_qs)
                                     break
                             break
                         else:
@@ -76,11 +84,11 @@ class PaperGenerator():
                             paper_info[qs_num].append((selected_topic,selected_subtopic,qs_difficulty))
                             # print(selected_topic,selected_subtopic,qs_difficulty)
                             actual_qs=self.get_question(selected_topic, selected_subtopic, qs_difficulty)
-                            paper.append(actual_qs)
+                            self.paper.append(actual_qs)
                             break
                 qs_num+=1
         
-        return paper,paper_info
+        return self.paper,paper_info
         
         
     # converts proficiency to difficulty level of question to be picked. 
