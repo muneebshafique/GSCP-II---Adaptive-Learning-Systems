@@ -34,15 +34,15 @@ class PaperGenerator():
 
         question_rows = cursor.fetchall()
         # print(question_rows)
-        sorted_list_question = sorted(question_rows, key=lambda x: x[4])
-        # random_question = random.choice(question_rows)
-        question = sorted_list_question[-1]
-        i=-2
-        while question[0] in self.paper:
-            question=sorted_list_question[i]
-            i-=1
+        # sorted_list_question = sorted(question_rows, key=lambda x: x[4])
+        random_question = random.choice(question_rows)
+        # question = sorted_list_question[-1]
+        # i=-2
+        # while question[0] in self.paper:
+        #     question=sorted_list_question[i]
+        #     i-=1
 
-        return(question[0])
+        return(random_question[0])
    
         db_conn.close()
 

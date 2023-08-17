@@ -121,10 +121,11 @@ class StudentModel:
             qs_info=paper_info[i+1]
         
             for topic_info in qs_info:
+                # print("topic info")
                 # print(topic_info)
                 qs_diff=self.get_diff_val(paper[i], topic_info[0], topic_info[1])
                 if (topic_info[0],topic_info[1]) not in student_ability:
-                    student_ability[topic_info[0],topic_info[1]]=[0,0]
+                    student_ability[topic_info[0],topic_info[1]]=[0,0,0]
                     updated_topic_record=self.Q_update_topic_record(student_ability[(topic_info[0],topic_info[1])],response[i],qs_diff)
                     student_ability[(topic_info[0],topic_info[1])]=updated_topic_record
                 else:
@@ -137,12 +138,13 @@ class StudentModel:
 
     #helper function to Q_generate_new_proficiencies
     def Q_update_topic_record(self,record, response,qs_diff):
-        correct_diff,total_diff=record[0], record[1]
+        correct_diff,total_diff,num_of_qs=record[0], record[1],record[2]
         if response == 1:
             correct_diff+=qs_diff
         total_diff+=qs_diff
+        num_of_qs+=1
 
-        record[0], record[1] = correct_diff,total_diff
+        record[0], record[1],record[2] = correct_diff,total_diff,num_of_qs
 
         return record
 
@@ -150,11 +152,11 @@ class StudentModel:
     def Q_update_student_proficiency(self, response,paper_info, topic_section_mapping,paper):
         student_ability=self.Q_generate_new_proficiencies(response, paper_info,paper)
         for topic_subtopic, details in student_ability.items():
-            correct_diff,total_diff=details[0],details[1]
+            correct_diff,total_diff,weightage=details[0],details[1],details[2]
             topic_proficiency= correct_diff/total_diff
             if topic_subtopic[1]== "None":
                 section=topic_section_mapping[topic_subtopic[0]]
-                self.topic_proficiency[section][topic_subtopic[0]]=  ((topic_proficiency*total_diff) +  (self.topic_proficiency[section][topic_subtopic[0]]*CATSIM_WEIGHTAGE))/(CATSIM_WEIGHTAGE+total_diff)
+                self.topic_proficiency[section][topic_subtopic[0]]=  ((topic_proficiency*weightage) +  (self.topic_proficiency[section][topic_subtopic[0]]*CATSIM_WEIGHTAGE))/(CATSIM_WEIGHTAGE+weightage)
             else:
                 self.subtopic_proficiency[topic_subtopic[0]][topic_subtopic[1]]=  ((topic_proficiency*total_diff) +  (self.subtopic_proficiency[topic_subtopic[0]][topic_subtopic[1]]*CATSIM_WEIGHTAGE))/(CATSIM_WEIGHTAGE+total_diff)
 
